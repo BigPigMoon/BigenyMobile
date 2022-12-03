@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="Bigeny.Views.Dashboard"
+            xmlns:local="clr-namespace:Xam.Plugin.TabView;assembly=Xam.Plugin.TabView"
+            xmlns:views="clr-namespace:Bigeny.Views"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            UnselectedTabColor="{DynamicResource BigenyWhite}"
+            SelectedTabColor="{DynamicResource BigenyBlack}"
+            BarBackgroundColor="{DynamicResource BigenyBlue}"
+            BarTextColor="{DynamicResource BigenyWhite}"
+            Title="Dashboard">
+
+    <views:Dialogs Title="Dialogs" IconImageSource="dialogs.png"/>
+
+    <ContentPage Title="Dashboard" IconImageSource="news.png" >
+        <local:TabViewControl HeaderBackgroundColor="{DynamicResource BigenyBlack}">
+            <local:TabViewControl.ItemSource>
+                <local:TabItem HeaderText="Chennels">
+                    <AbsoluteLayout>
+                        <ScrollView>
+                            <ListView x:Name="channels_listView" HasUnevenRows="True" SelectionMode="None" SeparatorVisibility="None" ItemTapped="channels_listView_ItemTapped">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <ViewCell.View>
+                                                <Frame HorizontalOptions="FillAndExpand" BackgroundColor="{DynamicResource BigenyGray}"
+                                                    Margin="5" Padding="10" HasShadow="False" CornerRadius="10">
+                                                    <FlexLayout Direction="Row">
+                                                        <Frame CornerRadius="100" HeightRequest="64"
+                                                            WidthRequest="64" Padding="0"
+                                                            HasShadow="False" Margin="0,0,20,0">
+                                                            <Image Source="{Binding PhotoUri}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                        </Frame>
+                                                        <StackLayout FlexLayout.Grow="1">
+                                                            <Label Text="{Binding Name}" TextColor="{DynamicResource BigenyBlack}" FontSize="20"/>
+                                                            <Label Text="{Binding LastMessage}" TextColor="{DynamicResource BigenyBlack}" FontSize="16"/>
+                                                        </StackLayout>
+                                                    </FlexLayout>
+                                                </Frame>
+                                            </ViewCell.View>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </ScrollView>
+                        <ImageButton AbsoluteLayout.LayoutFlags="PositionProportional"
+                                         AbsoluteLayout.LayoutBounds=".90,.95,60,60"
+                                         Source="plus.png"
+                                         Padding="10"
+                                         CornerRadius="60"
+                                         HeightRequest="60"
+                                         WidthRequest="60"
+                                         BackgroundColor="{DynamicResource BigenyBlue}"
+                                         Clicked="ImageButton_Clicked"/>
+                    </AbsoluteLayout>
+                </local:TabItem>
+                <local:TabItem HeaderText="Wall">
+                    <ScrollView>
+                        <ListView x:Name="wallposts_listView" HasUnevenRows="True" SelectionMode="None" SeparatorVisibility="None" ItemTapped="wallposts_ItemTapped">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ViewCell.View>
+                                            <StackLayout>
+                                                <Frame HorizontalOptions="FillAndExpand" BackgroundColor="{DynamicResource BigenyGray}" Margin="10" Padding="10" HasShadow="False" CornerRadius="10">
+                                                    <StackLayout>
+                                                        <FlexLayout Direction="Row">
+                                                            <Frame CornerRadius="100" HeightRequest="64"
+                                                                WidthRequest="64" Padding="0"
+                                                                HasShadow="False" Margin="0,0,20,0">
+                                                                <Image Source="avatar.png" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                            </Frame>
+                                                            <StackLayout FlexLayout.Grow="1">
+                                                                <Label Text="{Binding Name}" TextColor="{DynamicResource BigenyBlack}" FontSize="20"/>
+                                                                <Label Text="{Binding Date}" TextColor="{DynamicResource BigenyBlack}" FontSize="16"/>
+                                                            </StackLayout>
+                                                        </FlexLayout>
+                                                        <Label Text="{Binding Content}"
+                                                               FontSize="24"
+                                                               Padding="10"
+                                                               TextColor="{DynamicResource BigenyBlack}"/>
+                                                        <FlexLayout JustifyContent="SpaceBetween" AlignItems="Center">
+                                                            <StackLayout Orientation="Horizontal">
+                                                                <Label Text="&#58830;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{DynamicResource BigenyGreen}" ClassId="{Binding Id}">
+                                                                    <Label.GestureRecognizers>
+                                                                        <TapGestureRecognizer Tapped="OnUpButtonTapped" CommandParameter="{Binding .}"/>
+                                                                    </Label.GestureRecognizers>
+                                                                </Label>
+                                                                <Label Text="{Binding Rate}" FontSize="20" TextColor="{DynamicResource BigenyBlack}"/>
+                                                                <Label Text="&#58831;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{DynamicResource BigenyRed}"  ClassId="{Binding Id}">
+                                                                    <Label.GestureRecognizers>
+                                                                        <TapGestureRecognizer Tapped="OnDownButtonTapped" CommandParameter="{Binding .}"/>
+                                                                    </Label.GestureRecognizers>
+                                                                </Label>
+                                                            </StackLayout>
+                                                            <StackLayout Orientation="Horizontal">
+                                                                <Label Text="&#57527;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{DynamicResource BigenyBlue}"/>
+                                                            </StackLayout>
+                                                        </FlexLayout>
+                                                    </StackLayout>
+                                                </Frame>
+                                            </StackLayout>
+                                        </ViewCell.View>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollView>
+                </local:TabItem>
+                <local:TabItem HeaderText="Now">
+                    <Image Source="https://s3.amazonaws.com/stickers.wiki/mmdpepe_stickers/163514.512.webp"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center"/>
+                </local:TabItem>
+            </local:TabViewControl.ItemSource>
+        </local:TabViewControl>
+    </ContentPage>
+
+
+    <views:Profile Title="Profile" IconImageSource="user.png"/>
+</TabbedPage>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bigeny.Views.Dialogs"
+             BackgroundColor="{DynamicResource BigenyWhite}">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <ScrollView>
+                <ListView x:Name="dialogs_listView"
+                          HasUnevenRows="True"
+                          SelectionMode="None"
+                          SeparatorVisibility="None"
+                          ItemTapped="dialogs_listView_ItemTapped">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Frame HorizontalOptions="FillAndExpand"
+                                           BackgroundColor="{DynamicResource BigenyGray}"
+                                           Margin="5"
+                                           Padding="10"
+                                           HasShadow="False"
+                                           CornerRadius="10">
+                                        <FlexLayout Direction="Row">
+                                            <Frame CornerRadius="100"
+                                                   HeightRequest="64"
+                                                   WidthRequest="64"
+                                                   Padding="0"
+                                                   HasShadow="False"
+                                                   Margin="0,0,20,0">
+                                                <Image Source="{Binding PhotoUri}" x:Name="avatar_image"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center"/>
+                                            </Frame>
+                                            <StackLayout FlexLayout.Grow="1">
+                                                <Label Text="{Binding Name}"
+                                               TextColor="{DynamicResource BigenyBlack}"
+                                               FontSize="20"/>
+                                                <Label Text="{Binding LastMessage}"
+                                                       TextColor="{DynamicResource BigenyBlack}"
+                                                       FontSize="16"/>
+                                            </StackLayout>
+                                            <BoxView IsVisible="{Binding IsReaded}"
+                                                     CornerRadius="100"
+                                                     Color="{DynamicResource BigenyBlue}"
+                                                     WidthRequest="16" HeightRequest="16"
+                                                     FlexLayout.AlignSelf="Center"/>
+                                        </FlexLayout>
+                                    </Frame>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+            <ImageButton AbsoluteLayout.LayoutFlags="PositionProportional"
+                             AbsoluteLayout.LayoutBounds=".90,.95,60,60"
+                             Source="plus.png"
+                             Padding="10"
+                             CornerRadius="60"
+                             HeightRequest="60"
+                             WidthRequest="60"
+                             BackgroundColor="{DynamicResource BigenyBlue}"
+                             Clicked="ImageButton_Clicked"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bigeny.App">
+    <Application.Resources>
+        <Color x:Key="BigenyBlack">#210124</Color>
+        <Color x:Key="BigenyWhite">#FAFAFA</Color>
+        <Color x:Key="BigenyBlue">#5158BB</Color>
+        <Color x:Key="BigenyGray">#EFECFB</Color>
+        <Color x:Key="BigenyRed">#FF1B1C</Color>
+        <Color x:Key="BigenyGreen">#06BA63</Color>
+
+        <Style x:Key="BigenyButton" TargetType="Button">
+            <Setter Property="CornerRadius" Value="32"/>
+            <Setter Property="BackgroundColor" Value="{DynamicResource BigenyBlack}"/>
+            <Setter Property="TextColor" Value="{DynamicResource BigenyWhite}"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </Application.Resources>
+</Application>
