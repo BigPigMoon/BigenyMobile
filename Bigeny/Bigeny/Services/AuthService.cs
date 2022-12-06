@@ -22,7 +22,7 @@ namespace Bigeny.Services
             }
             catch (Exception ex)
             {
-                // may be need to degub this, mb :/
+                Console.WriteLine(ex);
             }
 
             return true;
@@ -40,7 +40,7 @@ namespace Bigeny.Services
             }
             catch (Exception ex)
             {
-                // may be need to degub this, mb :/
+                Console.WriteLine(ex);
             }
 
             return true;
@@ -57,7 +57,7 @@ namespace Bigeny.Services
             }
             catch(Exception ex)
             {
-
+                Console.WriteLine(ex);
             }
         }
     }

@@ -36,5 +36,10 @@ namespace Bigeny.Views
         {
             Application.Current.MainPage = new Registration();
         }
+
+        private void Visible_Tapped(object sender, EventArgs e)
+        {
+            password_input.IsPassword = !password_input.IsPassword;
+        }
     }
 }

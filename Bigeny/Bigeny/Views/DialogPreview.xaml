@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bigeny.Views.DialogPreview">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="{DynamicResource BigenyBlue}" HeightRequest="40" HasShadow="False">
+                <FlexLayout Margin="0" Padding="0">
+                    <Label Text="&#58820;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="48" TextColor="{DynamicResource BigenyWhite}" Margin="0,0,20,0" VerticalTextAlignment="Start">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBackButton_Clicked"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Frame HeightRequest="28" WidthRequest="28" FlexLayout.AlignSelf="Center" CornerRadius="100" Margin="0,0,20,0" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Avatar_Tapped"/>
+                        </Frame.GestureRecognizers>
+                        <Image Source="avatar.png" Aspect="AspectFill" Scale="2"/>
+                    </Frame>
+                    <Label Text="username" FontSize="20" TextColor="{DynamicResource BigenyWhite}" Margin="0" FlexLayout.AlignSelf="Center"/>
+                </FlexLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -23,5 +23,26 @@ namespace Bigeny.Views
             AuthService.Logout();
             Application.Current.MainPage = new Login();
         }
+
+        private void Rename_Entry(object sender, EventArgs e)
+        {
+            if (rename_Entry.IsEnabled)
+            {
+            }
+            else
+            {
+            }
+            rename_Entry.IsEnabled = !rename_Entry.IsEnabled;
+        }
+
+        private void AvatarChange_Tapped(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PhoneChange_Tapped(object sender, EventArgs e)
+        {
+
+        }
     }
 }

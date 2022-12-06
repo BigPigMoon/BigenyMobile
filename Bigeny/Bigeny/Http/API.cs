@@ -6,10 +6,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using Xamarin.Essentials;
 
 namespace Bigeny.Http
@@ -101,6 +98,7 @@ namespace Bigeny.Http
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex);
                     return null;
                 }
             }

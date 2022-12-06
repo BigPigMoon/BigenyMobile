@@ -11,7 +11,7 @@
             <Label Text="Email" FontSize="26" TextColor="{DynamicResource BigenyBlack}" Margin="50, 30, 0, 0"/>
             <Frame CornerRadius="10" Margin="40, 0, 40, 0" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
                 <FlexLayout HeightRequest="45" JustifyContent="Center" AlignItems="Center">
-                    <Image Source="arroba" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
+                    <Label Text="&#57574;" FontSize="26" TextColor="{DynamicResource BigenyBlack}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
                     <Entry x:Name="email_input" TextColor="{DynamicResource BigenyWhite}" FlexLayout.Grow="1"/>
                 </FlexLayout>
             </Frame>
@@ -19,7 +19,7 @@
             <Label Text="You name" FontSize="26" TextColor="{DynamicResource BigenyBlack}" Margin="50, 30, 0, 0"/>
             <Frame CornerRadius="10" Margin="40, 0, 40, 0" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
                 <FlexLayout HeightRequest="45" JustifyContent="Center" AlignItems="Center">
-                    <Image Source="userCircle" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
+                    <Label Text="&#59475;" FontSize="26" TextColor="{DynamicResource BigenyBlack}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
                     <Entry x:Name="nickname_input" TextColor="{DynamicResource BigenyWhite}" FlexLayout.Grow="1"/>
                 </FlexLayout>
             </Frame>
@@ -27,8 +27,13 @@
             <Label Text="Password" FontSize="26" TextColor="{DynamicResource BigenyBlack}" Margin="50, 30, 0, 0"/>
             <Frame CornerRadius="10" Margin="40, 0, 40, 20" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
                 <FlexLayout HeightRequest="45" JustifyContent="Center" AlignItems="Center">
-                    <Image Source="padlock" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
+                    <Label Text="&#59543;" FontSize="26" TextColor="{DynamicResource BigenyBlack}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
                     <Entry x:Name="password_input" IsPassword="True" TextColor="{DynamicResource BigenyWhite}" FlexLayout.Grow="1"/>
+                    <Label Text="&#59636;" FontSize="26" TextColor="{DynamicResource BigenyBlack}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="10,0,0,0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Visible_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </FlexLayout>
             </Frame>
             

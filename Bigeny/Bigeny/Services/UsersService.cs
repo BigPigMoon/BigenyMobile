@@ -23,6 +23,7 @@ namespace Bigeny.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return null;
             }
         }
@@ -39,6 +40,7 @@ namespace Bigeny.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return null;
             }
         }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,7 +12,7 @@ namespace Bigeny.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Dialogs : ContentPage
     {
-        public class DialogPreview {
+        public class DialogPreviewModel {
             public string Name { get; set; }
             public string LastMessage { get; set; }
             // change string to URI
@@ -21,7 +20,7 @@ namespace Bigeny.Views
             public bool IsReaded { get; set; }
         };
 
-        public List<DialogPreview> dialogPreviews;
+        public List<DialogPreviewModel> dialogPreviews;
 
         public Dialogs()
         {
@@ -31,86 +30,30 @@ namespace Bigeny.Views
 
         private void LoadDialogsPreview()
         {
-            dialogPreviews = new List<DialogPreview>
+            dialogPreviews = new List<DialogPreviewModel>
             {
-                new DialogPreview
+                new DialogPreviewModel
                 {
                     Name = "Пепега",
                     LastMessage = "Привет",
                     PhotoUri = "avatar.png",
                     IsReaded = false,
                 },
-                new DialogPreview
+                new DialogPreviewModel
                 {
                     Name = "Пепега2",
                     LastMessage = "Здорова",
                     PhotoUri = "https://s3.amazonaws.com/stickers.wiki/mmdpepe_stickers/163514.512.webp",
                     IsReaded = true,
                 },
-                new DialogPreview
+                new DialogPreviewModel
                 {
                     Name = "Пепега3",
                     LastMessage = "Куку",
                     PhotoUri = "avatar.png",
                     IsReaded = false,
                 },
-                new DialogPreview
-                {
-                    Name = "Пепега4",
-                    LastMessage = "ААААА",
-                    PhotoUri = "avatar.png",
-                    IsReaded = true,
-                },
-                                new DialogPreview
-                {
-                    Name = "Пепега",
-                    LastMessage = "Привет",
-                    PhotoUri = "avatar.png",
-                    IsReaded = false,
-                },
-                new DialogPreview
-                {
-                    Name = "Пепега2",
-                    LastMessage = "Здорова",
-                    PhotoUri = "https://s3.amazonaws.com/stickers.wiki/mmdpepe_stickers/163514.512.webp",
-                    IsReaded = true,
-                },
-                new DialogPreview
-                {
-                    Name = "Пепега3",
-                    LastMessage = "Куку",
-                    PhotoUri = "avatar.png",
-                    IsReaded = false,
-                },
-                new DialogPreview
-                {
-                    Name = "Пепега4",
-                    LastMessage = "ААААА",
-                    PhotoUri = "avatar.png",
-                    IsReaded = true,
-                },
-                                new DialogPreview
-                {
-                    Name = "Пепега",
-                    LastMessage = "Привет",
-                    PhotoUri = "avatar.png",
-                    IsReaded = false,
-                },
-                new DialogPreview
-                {
-                    Name = "Пепега2",
-                    LastMessage = "Здорова",
-                    PhotoUri = "https://s3.amazonaws.com/stickers.wiki/mmdpepe_stickers/163514.512.webp",
-                    IsReaded = true,
-                },
-                new DialogPreview
-                {
-                    Name = "Пепега3",
-                    LastMessage = "Куку",
-                    PhotoUri = "avatar.png",
-                    IsReaded = false,
-                },
-                new DialogPreview
+                new DialogPreviewModel
                 {
                     Name = "Пепега4",
                     LastMessage = "ААААА",
@@ -121,14 +64,14 @@ namespace Bigeny.Views
             dialogs_listView.ItemsSource = dialogPreviews;
         }
 
-        private void ImageButton_Clicked(object sender, EventArgs e)
+        private async void ImageButton_Clicked(object sender, EventArgs e)
         {
-            // TODO: go to create dialog screen
+            await Navigation.PushModalAsync(new CreateDialog());
         }
 
-        private void dialogs_listView_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void dialogs_listView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-
+            await Navigation.PushModalAsync(new DialogPreview());
         }
     }
 }

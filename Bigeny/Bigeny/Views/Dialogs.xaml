@@ -5,7 +5,7 @@
              BackgroundColor="{DynamicResource BigenyWhite}">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <ScrollView>
+            <ScrollView Margin="0,0,20,0">
                 <ListView x:Name="dialogs_listView"
                           HasUnevenRows="True"
                           SelectionMode="None"
@@ -54,7 +54,7 @@
                 </ListView>
             </ScrollView>
             <ImageButton AbsoluteLayout.LayoutFlags="PositionProportional"
-                             AbsoluteLayout.LayoutBounds=".90,.95,60,60"
+                         AbsoluteLayout.LayoutBounds=".95,.97,60,60"
                              Source="plus.png"
                              Padding="10"
                              CornerRadius="60"

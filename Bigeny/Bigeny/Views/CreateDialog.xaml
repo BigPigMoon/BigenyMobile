@@ -1,12 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Bigeny.Views.CreateDialog">
+             x:Class="Bigeny.Views.CreateDialog"
+             Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Create dialog"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <AbsoluteLayout>
+            
+            <StackLayout>
+                <Frame BackgroundColor="{DynamicResource BigenyBlue}" HeightRequest="40" HasShadow="False">
+                    <FlexLayout Margin="0" Padding="0">
+                        <Label Text="&#58820;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="48" TextColor="{DynamicResource BigenyWhite}" Margin="0,0,30,0" VerticalTextAlignment="Start">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnBackButton_Clicked"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Text="Create Dialog" FontSize="32" TextColor="{DynamicResource BigenyWhite}" Margin="0"/>
+                    </FlexLayout>
+                </Frame>
+                <Frame CornerRadius="10" Margin="20, 10, 20, 10" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
+                    <Entry x:Name="chat_name" TextColor="{DynamicResource BigenyWhite}" Placeholder="Chat name" PlaceholderColor="{DynamicResource BigenyWhite}"/>
+                </Frame>
+                <Frame HeightRequest="50" BackgroundColor="{DynamicResource BigenyWhite}" BorderColor="{DynamicResource BigenyBlack}" CornerRadius="100" Padding="20,0,20,0" Margin="20,0,20,0" HasShadow="False">
+                    <FlexLayout JustifyContent="Center" AlignItems="Center">
+                        <Entry x:Name="userName_searchBar" TextColor="{DynamicResource BigenyBlack}" FlexLayout.Grow="1" TextChanged="userName_searchBar_TextChanged" Placeholder="Search users..."/>
+                        <Label Text="&#59574;" TextColor="{DynamicResource BigenyBlack}" FontFamily="Material" FontSize="32" Margin="10,0,10,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SearchLabel_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </FlexLayout>
+                </Frame>
+
+                <ScrollView FlexLayout.Grow="1">
+                    <ListView x:Name="users_listView"
+                              HasUnevenRows="True"
+                              HeightRequest="-1"
+                              SelectionMode="None"
+                              SeparatorVisibility="None"
+                              ItemTapped="users_listView_ItemTapped">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <Frame HorizontalOptions="FillAndExpand"
+                                               BackgroundColor="{DynamicResource BigenyGray}"
+                                               Margin="5"
+                                               Padding="10"
+                                               HasShadow="False"
+                                               CornerRadius="10"
+                                               HeightRequest="70">
+                                            <FlexLayout Direction="Row">
+                                                <Frame CornerRadius="100"
+                                                       HeightRequest="64"
+                                                       WidthRequest="64"
+                                                       Padding="0"
+                                                       HasShadow="False"
+                                                       Margin="0,0,20,0">
+                                                    <Image Source="{Binding PhotoUri}" x:Name="avatar_image"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center"/>
+                                                </Frame>
+                                                <Label Text="{Binding Name}" TextColor="{DynamicResource BigenyBlack}" FontSize="20"/>
+                                            </FlexLayout>
+                                        </Frame>
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+            </StackLayout>
+
+            <ImageButton AbsoluteLayout.LayoutFlags="PositionProportional"
+                        AbsoluteLayout.LayoutBounds=".95,.97,60,60"
+                             Source="next.png"
+                             Padding="10"
+                             CornerRadius="60"
+                             HeightRequest="60"
+                             WidthRequest="60"
+                             BackgroundColor="{DynamicResource BigenyBlue}"
+                             Clicked="NextButton_Clicked"/>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

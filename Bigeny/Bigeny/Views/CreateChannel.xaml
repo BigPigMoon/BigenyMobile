@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bigeny.Views.CreateChannel">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <StackLayout>
+                <Frame BackgroundColor="{DynamicResource BigenyBlue}" HeightRequest="40" HasShadow="False">
+                    <FlexLayout Margin="0" Padding="0">
+                        <Label Text="&#58820;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="48" TextColor="{DynamicResource BigenyWhite}" Margin="0,0,30,0" VerticalTextAlignment="Start">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnBackButton_Clicked"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Text="Create Dialog" FontSize="32" TextColor="{DynamicResource BigenyWhite}" Margin="0"/>
+                    </FlexLayout>
+                </Frame>
+
+                <FlexLayout Margin="20, 0, 20, 0">
+                    <Frame CornerRadius="100" BorderColor="{DynamicResource BigenyBlack}">
+                        <ImageButton WidthRequest="64" HeightRequest="64" Source="avatar.png" Clicked="AvatarButton_Clicked"/>
+                    </Frame>
+                    <Frame CornerRadius="10" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}" HeightRequest="40" FlexLayout.Grow="1" Margin="20, 10, 20, 10" FlexLayout.AlignSelf="Center">
+                        <Entry x:Name="channel_name" TextColor="{DynamicResource BigenyWhite}" Placeholder="Channel name" PlaceholderColor="{DynamicResource BigenyWhite}"/>
+                    </Frame>
+                </FlexLayout>
+
+                <Frame CornerRadius="10" Margin="20, 10, 20, 10" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
+                    <Entry x:Name="description" TextColor="{DynamicResource BigenyWhite}" Placeholder="Description" PlaceholderColor="{DynamicResource BigenyWhite}"/>
+                </Frame>
+
+                <Frame CornerRadius="10" Margin="20, 10, 20, 10" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
+                    <Entry x:Name="tags" TextColor="{DynamicResource BigenyWhite}" Placeholder="Tags" PlaceholderColor="{DynamicResource BigenyWhite}"/>
+                </Frame>
+                <Label Text="Please, enter tags with # symbol with separate by whitespace." FontSize="24" TextColor="{DynamicResource BigenyBlack}" Margin="20, 0, 20, 0"/>
+            </StackLayout>
+
+            <ImageButton AbsoluteLayout.LayoutFlags="PositionProportional"
+                        AbsoluteLayout.LayoutBounds=".95,.97,60,60"
+                        Source="next.png"
+                        Padding="10"
+                        CornerRadius="60"
+                        HeightRequest="60"
+                        WidthRequest="60"
+                        BackgroundColor="{DynamicResource BigenyBlue}"
+                        Clicked="NextButton_Clicked"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
