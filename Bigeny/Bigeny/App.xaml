@@ -6,15 +6,49 @@
         <Color x:Key="BigenyBlack">#210124</Color>
         <Color x:Key="BigenyWhite">#FAFAFA</Color>
         <Color x:Key="BigenyBlue">#5158BB</Color>
-        <Color x:Key="BigenyGray">#EFECFB</Color>
+        <Color x:Key="BigenyGray">#dcdcdc</Color>
         <Color x:Key="BigenyRed">#FF1B1C</Color>
         <Color x:Key="BigenyGreen">#06BA63</Color>
+        <Color x:Key="BigenyDark">#101010</Color>
+        <Color x:Key="BigenyDarkWhite">#EBEBEB</Color>
+        <Color x:Key="BigenyDarkGray">#202020</Color>
 
         <Style x:Key="BigenyButton" TargetType="Button">
             <Setter Property="CornerRadius" Value="32"/>
-            <Setter Property="BackgroundColor" Value="{DynamicResource BigenyBlack}"/>
-            <Setter Property="TextColor" Value="{DynamicResource BigenyWhite}"/>
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BigenyBlack}, Dark={StaticResource BigenyBlack}}"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource BigenyWhite}, Dark={StaticResource BigenyDarkWhite}}"/>
             <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <Style x:Key="BigenyLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource BigenyDarkWhite}, Light={StaticResource BigenyBlack}}"/>
+        </Style>
+        
+        <Style x:Key="BigenyHeaderLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource BigenyBlack}, Light={StaticResource BigenyWhite}}"/>
+        </Style>
+
+        <Style x:Key="BigenyEntry" TargetType="Entry">
+            <Setter Property="TextColor" Value="{StaticResource BigenyWhite}"/>
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Dark={StaticResource BigenyWhite}, Light={StaticResource BigenyWhite}}"/>
+        </Style>
+
+        <Style x:Key="BigenySearchEntry" TargetType="Entry">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource BigenyWhite}, Light={StaticResource BigenyBlack}}"/>
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Dark={StaticResource BigenyWhite}, Light={StaticResource BigenyWhite}}"/>
+        </Style>
+
+        <Style x:Key="BigenyBackground" TargetType="ContentPage">
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BigenyWhite}, Dark={StaticResource BigenyDark}}"/>
+        </Style>
+
+        <Style x:Key="BigenySearch" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BigenyWhite}, Dark={StaticResource BigenyDark}}"/>
+            <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource BigenyDark}, Dark={StaticResource BigenyDarkWhite}}"/>
+        </Style>
+
+        <Style x:Key="BigenyCard" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BigenyGray}, Dark={StaticResource BigenyDarkGray}}"/>
         </Style>
     </Application.Resources>
 </Application>

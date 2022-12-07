@@ -22,6 +22,7 @@ namespace Bigeny.Views
         };
 
         public List<UserPreview> userPreview;
+        public List<UserPreview> selectedItems = new List<UserPreview>();
 
         public CreateDialog()
         {
@@ -53,10 +54,17 @@ namespace Bigeny.Views
         {
             var item = (UserPreview)e.Item;
             if (userPreview.Find(x => x.Name == item.Name).PhotoUri != "done.png")
+            {
                 userPreview.Find(x => x.Name == item.Name).PhotoUri = "done.png";
+                selectedItems.Add(item);
+            }
             else
+            {
                 userPreview.Find(x => x.Name == item.Name).PhotoUri = "avatar.png";
+                selectedItems.Remove(item);
+            }
 
+            chat_name_frame.IsVisible = selectedItems.Count > 1;
             Search();
         }
 

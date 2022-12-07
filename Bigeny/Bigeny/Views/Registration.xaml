@@ -2,34 +2,34 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Bigeny.Views.Registration"
-             BackgroundColor="{DynamicResource BigenyWhite}">
+             Style="{StaticResource BigenyBackground}">
     <ContentPage.Content>
         <FlexLayout Direction="Column">
-            <Label Text="Create" FontSize="52" FontAttributes="Bold" TextColor="{DynamicResource BigenyBlack}" Margin="20, 20, 0, 0"/>
-            <Label Text="Account" FontSize="52" FontAttributes="Bold" TextColor="{DynamicResource BigenyBlack}" Margin="20, 0, 0, 40"/>
+            <Label Text="Create" FontSize="52" FontAttributes="Bold" Style="{StaticResource BigenyLabel}" Margin="20, 20, 0, 0"/>
+            <Label Text="Account" FontSize="52" FontAttributes="Bold" Style="{StaticResource BigenyLabel}" Margin="20, 0, 0, 40"/>
 
-            <Label Text="Email" FontSize="26" TextColor="{DynamicResource BigenyBlack}" Margin="50, 30, 0, 0"/>
+            <Label Text="Email" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
             <Frame CornerRadius="10" Margin="40, 0, 40, 0" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
                 <FlexLayout HeightRequest="45" JustifyContent="Center" AlignItems="Center">
-                    <Label Text="&#57574;" FontSize="26" TextColor="{DynamicResource BigenyBlack}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
+                    <Label Text="&#57574;" FontSize="26" Style="{StaticResource BigenyLabel}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
                     <Entry x:Name="email_input" TextColor="{DynamicResource BigenyWhite}" FlexLayout.Grow="1"/>
                 </FlexLayout>
             </Frame>
 
-            <Label Text="You name" FontSize="26" TextColor="{DynamicResource BigenyBlack}" Margin="50, 30, 0, 0"/>
+            <Label Text="You name" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
             <Frame CornerRadius="10" Margin="40, 0, 40, 0" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
                 <FlexLayout HeightRequest="45" JustifyContent="Center" AlignItems="Center">
-                    <Label Text="&#59475;" FontSize="26" TextColor="{DynamicResource BigenyBlack}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
+                    <Label Text="&#59475;" FontSize="26" Style="{StaticResource BigenyLabel}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
                     <Entry x:Name="nickname_input" TextColor="{DynamicResource BigenyWhite}" FlexLayout.Grow="1"/>
                 </FlexLayout>
             </Frame>
 
-            <Label Text="Password" FontSize="26" TextColor="{DynamicResource BigenyBlack}" Margin="50, 30, 0, 0"/>
+            <Label Text="Password" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
             <Frame CornerRadius="10" Margin="40, 0, 40, 20" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
                 <FlexLayout HeightRequest="45" JustifyContent="Center" AlignItems="Center">
-                    <Label Text="&#59543;" FontSize="26" TextColor="{DynamicResource BigenyBlack}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
+                    <Label Text="&#59543;" FontSize="26" Style="{StaticResource BigenyLabel}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
                     <Entry x:Name="password_input" IsPassword="True" TextColor="{DynamicResource BigenyWhite}" FlexLayout.Grow="1"/>
-                    <Label Text="&#59636;" FontSize="26" TextColor="{DynamicResource BigenyBlack}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="10,0,0,0">
+                    <Label Text="&#59636;" FontSize="26" Style="{StaticResource BigenyLabel}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="10,0,0,0">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="Visible_Tapped"/>
                         </Label.GestureRecognizers>
@@ -44,9 +44,9 @@
             
             <ContentView>
                 <FlexLayout Direction="Row" HeightRequest="30" JustifyContent="Center" AlignItems="Center">
-                    <BoxView Color="{DynamicResource BigenyBlack}" HeightRequest="1" FlexLayout.Grow="0.5" Margin="20,0,0,0"/>
-                    <Label Text="or" TextColor="{DynamicResource BigenyBlack}" FontSize="24" Margin="20,0,20,0"/>
-                    <BoxView Color="{DynamicResource BigenyBlack}" HeightRequest="1" FlexLayout.Grow="0.5" Margin="0,0,20,0"/>
+                    <BoxView Color="{AppThemeBinding Light={StaticResource BigenyBlack}, Dark={StaticResource BigenyDarkWhite}}" HeightRequest="1" FlexLayout.Grow="0.5" Margin="20,0,0,0"/>
+                    <Label Text="or" Style="{StaticResource BigenyLabel}" FontSize="24" Margin="20,0,20,0"/>
+                    <BoxView Color="{AppThemeBinding Light={StaticResource BigenyBlack}, Dark={StaticResource BigenyDarkWhite}}" HeightRequest="1" FlexLayout.Grow="0.5" Margin="0,0,20,0"/>
                 </FlexLayout>
             </ContentView>
             

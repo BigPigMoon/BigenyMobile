@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Bigeny.Views.DialogPreview"
-             BackgroundColor="{DynamicResource BigenyWhite}">
+             Style="{StaticResource BigenyBackground}">
     <ContentPage.Content>
         <StackLayout>
             <Frame BackgroundColor="{DynamicResource BigenyBlue}" HeightRequest="40" HasShadow="False">
                 <FlexLayout Margin="0" Padding="0">
-                    <Label Text="&#58820;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="48" TextColor="{DynamicResource BigenyWhite}" Margin="0,0,20,0" VerticalTextAlignment="Start">
+                    <Label Text="&#58820;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="48" Style="{StaticResource BigenyHeaderLabel}" Margin="0,0,20,0" VerticalTextAlignment="Start">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnBackButton_Clicked"/>
                         </Label.GestureRecognizers>
@@ -18,7 +18,7 @@
                         </Frame.GestureRecognizers>
                         <Image Source="avatar.png" Aspect="AspectFill" Scale="2"/>
                     </Frame>
-                    <Label Text="username" FontSize="20" TextColor="{DynamicResource BigenyWhite}" Margin="0" FlexLayout.AlignSelf="Center"/>
+                    <Label Text="username" FontSize="20" Style="{StaticResource BigenyHeaderLabel}" Margin="0" FlexLayout.AlignSelf="Center"/>
                 </FlexLayout>
             </Frame>
 
@@ -29,10 +29,10 @@
 
             <Frame HeightRequest="40" BackgroundColor="{DynamicResource BigenyBlue}" Padding="10" x:Name="sender_input_view" HasShadow="False">
                 <FlexLayout Direction="Row">
-                    <Frame FlexLayout.Grow="1" BorderColor="{DynamicResource BigenyBlack}" CornerRadius="100" Margin="0, 0, 20, 0" Padding="10,0,10,0" HasShadow="False">
-                        <Entry x:Name="sender_input"/>
+                    <Frame FlexLayout.Grow="1" Style="{StaticResource BigenySearch}" CornerRadius="100" Margin="0, 0, 20, 0" Padding="10,0,10,0" HasShadow="False">
+                        <Entry x:Name="sender_input" Style="{StaticResource BigenyEntry}"/>
                     </Frame>
-                    <Label Text="&#57699;" TextColor="{DynamicResource BigenyWhite}" FontFamily="Material" FontSize="32" FlexLayout.AlignSelf="Center" Margin="0,0,10,0">
+                    <Label Text="&#57699;" Style="{StaticResource BigenyHeaderLabel}" FontFamily="Material" FontSize="32" FlexLayout.AlignSelf="Center" Margin="0,0,10,0">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="Sender_Tapped"/>
                         </Label.GestureRecognizers>

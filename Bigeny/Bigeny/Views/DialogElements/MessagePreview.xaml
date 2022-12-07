@@ -2,10 +2,10 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Bigeny.Views.DialogElements.MessagePreview">
-    <Frame x:Name="message_frame" BackgroundColor="{DynamicResource BigenyGray}" CornerRadius="25" Margin="10" MinimumWidthRequest="50" Padding="20,10,20,10" HasShadow="False">
+    <Frame x:Name="message_frame" Style="{StaticResource BigenyCard}" CornerRadius="25" Margin="10" MinimumWidthRequest="50" Padding="20,10,20,10" HasShadow="False">
         <StackLayout>
-            <Label x:Name="message_label" Text="" TextColor="{DynamicResource BigenyBlack}" FontSize="20"/>
-            <Label x:Name="time_label" Text="" HorizontalOptions="End" TextColor="{DynamicResource BigenyBlack}" FontSize="16"/>
+            <Label x:Name="message_label" Text="" Style="{StaticResource BigenyLabel}" FontSize="20"/>
+            <Label x:Name="time_label" Text="" HorizontalOptions="End" Style="{StaticResource BigenyLabel}" FontSize="16"/>
         </StackLayout>
     </Frame>
 </ContentView>

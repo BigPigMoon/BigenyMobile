@@ -3,6 +3,7 @@ using Bigeny.Services;
 using Bigeny.Views;
 using System;
 using System.Collections.Generic;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,7 +21,10 @@ namespace Bigeny
 
         protected override void OnStart()
         {
-
+            if (Preferences.Get("DarkTheme", false))
+                App.Current.UserAppTheme = OSAppTheme.Dark;
+            else
+                App.Current.UserAppTheme = OSAppTheme.Light;
         }
 
         protected override void OnSleep()
@@ -29,6 +33,10 @@ namespace Bigeny
 
         protected override void OnResume()
         {
+            if (Preferences.Get("DarkTheme", false))
+                App.Current.UserAppTheme = OSAppTheme.Dark;
+            else
+                App.Current.UserAppTheme = OSAppTheme.Light;
         }
     }
 }

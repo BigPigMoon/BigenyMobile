@@ -2,14 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Bigeny.Views.Dialogs"
-             BackgroundColor="{DynamicResource BigenyWhite}">
+             Style="{StaticResource BigenyBackground}">
     <ContentPage.Content>
         <AbsoluteLayout>
             <StackLayout Orientation="Vertical">
-                <Frame HeightRequest="50" BackgroundColor="{DynamicResource BigenyWhite}" BorderColor="{DynamicResource BigenyBlack}" CornerRadius="100" Padding="20,0,20,0" Margin="20" HasShadow="False">
+                <Frame HeightRequest="50" Style="{StaticResource BigenySearch}" CornerRadius="100" Padding="20,0,20,0" Margin="20" HasShadow="False">
                     <FlexLayout JustifyContent="Center" AlignItems="Center">
-                        <Entry x:Name="userName_searchBar" TextColor="{DynamicResource BigenyBlack}" FlexLayout.Grow="1" TextChanged="userName_searchBar_TextChanged" Placeholder="Search users..."/>
-                        <Label Text="&#59574;" TextColor="{DynamicResource BigenyBlack}" FontFamily="Material" FontSize="32" Margin="10,0,10,0">
+                        <Entry x:Name="userName_searchBar" Style="{StaticResource BigenySearchEntry}" FlexLayout.Grow="1" TextChanged="userName_searchBar_TextChanged" Placeholder="Search users..."/>
+                        <Label Text="&#59574;" Style="{StaticResource BigenyLabel}" FontFamily="Material" FontSize="32" Margin="10,0,10,0">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="SearchLabel_Tapped"/>
                             </Label.GestureRecognizers>
@@ -27,7 +27,7 @@
                                 <ViewCell>
                                     <ViewCell.View>
                                         <Frame HorizontalOptions="FillAndExpand"
-                                           BackgroundColor="{DynamicResource BigenyGray}"
+                                           Style="{StaticResource BigenyCard}"
                                            Margin="5"
                                            Padding="10"
                                            HasShadow="False"
@@ -44,12 +44,8 @@
                                                        VerticalOptions="Center"/>
                                                 </Frame>
                                                 <StackLayout FlexLayout.Grow="1">
-                                                    <Label Text="{Binding Name}"
-                                               TextColor="{DynamicResource BigenyBlack}"
-                                               FontSize="20"/>
-                                                    <Label Text="{Binding LastMessage}"
-                                                       TextColor="{DynamicResource BigenyBlack}"
-                                                       FontSize="16"/>
+                                                    <Label Text="{Binding Name}" Style="{StaticResource BigenyLabel}" FontSize="20"/>
+                                                    <Label Text="{Binding LastMessage}" Style="{StaticResource BigenyLabel}" FontSize="16"/>
                                                 </StackLayout>
                                                 <BoxView IsVisible="{Binding IsReaded}"
                                                      CornerRadius="100"

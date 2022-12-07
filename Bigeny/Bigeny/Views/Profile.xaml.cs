@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,6 +16,17 @@ namespace Bigeny.Views
         public Profile()
         {
             InitializeComponent();
+            if (Preferences.Get("DarkTheme", false))
+            {
+
+                moon_icon.IsVisible = false;
+                sun_icon.IsVisible = true;
+            }
+            else
+            {
+                moon_icon.IsVisible= true;
+                sun_icon.IsVisible= false;
+            }
         }
 
         private void Logout_Clicked(object sender, EventArgs e)
@@ -47,7 +58,20 @@ namespace Bigeny.Views
 
         private void ThemeSwitcher_Tapped(object sender, EventArgs e)
         {
-
+            if (App.Current.UserAppTheme == OSAppTheme.Dark)
+            {
+                App.Current.UserAppTheme = OSAppTheme.Light;
+                Preferences.Set("DarkTheme", false);
+                moon_icon.IsVisible = true;
+                sun_icon.IsVisible = false;
+            }
+            else
+            {
+                App.Current.UserAppTheme = OSAppTheme.Dark;
+                Preferences.Set("DarkTheme", true);
+                moon_icon.IsVisible = false;
+                sun_icon.IsVisible = true;
+            }
         }
     }
 }

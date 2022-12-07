@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Bigeny.Views.Profile">
+             x:Class="Bigeny.Views.Profile"
+             Style="{StaticResource BigenyBackground}">
     <ContentPage.Content>
-        <FlexLayout Direction="Column">
+        <StackLayout>
             <AbsoluteLayout HeightRequest="315" Margin="0,0,0,20">
                 <Image Source="fonphoto.png" HeightRequest="240" HorizontalOptions="FillAndExpand" Aspect="AspectFill"/>
                 <Frame BorderColor="{DynamicResource BigenyBlack}" CornerRadius="100" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".5,1,200,200" Padding="0">
@@ -12,23 +13,23 @@
                     </Frame>
                 </Frame>
                 <Frame AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".68,.4,64,64" CornerRadius="100" Padding="0" BackgroundColor="{DynamicResource BigenyBlue}">
-                    <Label Text="&#58425;" FontFamily="Material" FontSize="28" TextColor="{DynamicResource BigenyWhite}" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="&#58425;" FontFamily="Material" FontSize="28" TextColor="{StaticResource BigenyWhite}" HorizontalOptions="Center" VerticalOptions="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="AvatarChange_Tapped"/>
                         </Label.GestureRecognizers>
                     </Label>
                 </Frame>
-                <Label Text="&#58286;" FontFamily="Material" FontSize="28" TextColor="{DynamicResource BigenyWhite}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".95,.05,32,32">
+                <Label Text="&#58286;" FontFamily="Material" FontSize="28" TextColor="{StaticResource BigenyWhite}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".95,.05,32,32">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="PhoneChange_Tapped"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label Text="&#58652;" FontFamily="Material" FontSize="28" TextColor="{DynamicResource BigenyWhite}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".05,.05,32,32">
+                <Label x:Name="moon_icon" Text="&#58652;" FontFamily="Material" FontSize="28" TextColor="{StaticResource BigenyWhite}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".05,.05,32,32">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ThemeSwitcher_Tapped"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label IsVisible="False" Text="&#58648;" FontFamily="Material" FontSize="28" TextColor="{DynamicResource BigenyWhite}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".05,.05,32,32">
+                <Label x:Name="sun_icon" IsVisible="False" Text="&#58648;" FontFamily="Material" FontSize="28" TextColor="{StaticResource BigenyWhite}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".05,.05,32,32">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ThemeSwitcher_Tapped"/>
                     </Label.GestureRecognizers>
@@ -39,7 +40,7 @@
                 <Frame CornerRadius="10" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}" Margin="20, 10, 20, 10">
                     <FlexLayout Direction="Row" HeightRequest="50">
                             <Entry x:Name="rename_Entry" TextColor="{DynamicResource BigenyWhite}" PlaceholderColor="{DynamicResource BigenyWhite}" FlexLayout.Grow="1" IsEnabled="False"/>
-                            <Label Text="&#59810;" FontFamily="Material" FontSize="28" TextColor="{DynamicResource BigenyWhite}" FlexLayout.AlignSelf="Center" Margin="20,0,0,0">
+                        <Label Text="&#59810;" FontFamily="Material" FontSize="28" Style="{StaticResource BigenyLabel}" FlexLayout.AlignSelf="Center" Margin="20,0,0,0">
                                 <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Rename_Entry"/>
                                 </Label.GestureRecognizers>
@@ -49,8 +50,9 @@
             </StackLayout>
 
             <Button Text="Logout" Clicked="Logout_Clicked" Style="{StaticResource BigenyButton}"
-                    Margin="40, 230, 40, 0"
+                    Margin="40"
+                    VerticalOptions="EndAndExpand"
                     Padding="0, 15, 0, 15"/>
-        </FlexLayout>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

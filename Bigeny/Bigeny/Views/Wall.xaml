@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Bigeny.Views.Wall">
+             x:Class="Bigeny.Views.Wall"
+             Style="{StaticResource BigenyBackground}">
     <ContentPage.Content>
         <ScrollView Margin="0,0,20,0">
             <ListView x:Name="wallposts_listView" HasUnevenRows="True" SelectionMode="None" SeparatorVisibility="None" ItemTapped="wallposts_ItemTapped">
@@ -10,23 +11,18 @@
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout>
-                                    <Frame HorizontalOptions="FillAndExpand" BackgroundColor="{DynamicResource BigenyGray}" Margin="10" Padding="10" HasShadow="False" CornerRadius="10">
+                                    <Frame HorizontalOptions="FillAndExpand" Style="{StaticResource BigenyCard}" Margin="10" Padding="10" HasShadow="False" CornerRadius="10">
                                         <StackLayout>
                                             <FlexLayout Direction="Row">
-                                                <Frame CornerRadius="100" HeightRequest="64"
-                                                                WidthRequest="64" Padding="0"
-                                                                HasShadow="False" Margin="0,0,20,0">
+                                                <Frame CornerRadius="100" HeightRequest="64" WidthRequest="64" Padding="0" HasShadow="False" Margin="0,0,20,0">
                                                     <Image Source="avatar.png" HorizontalOptions="Center" VerticalOptions="Center"/>
                                                 </Frame>
                                                 <StackLayout FlexLayout.Grow="1">
-                                                    <Label Text="{Binding Name}" TextColor="{DynamicResource BigenyBlack}" FontSize="20"/>
-                                                    <Label Text="{Binding Date}" TextColor="{DynamicResource BigenyBlack}" FontSize="16"/>
+                                                    <Label Text="{Binding Name}" Style="{StaticResource BigenyLabel}" FontSize="20"/>
+                                                    <Label Text="{Binding Date}" Style="{StaticResource BigenyLabel}" FontSize="16"/>
                                                 </StackLayout>
                                             </FlexLayout>
-                                            <Label Text="{Binding Content}"
-                                                               FontSize="24"
-                                                               Padding="10"
-                                                               TextColor="{DynamicResource BigenyBlack}"/>
+                                            <Label Text="{Binding Content}" FontSize="24" Padding="10" Style="{StaticResource BigenyLabel}"/>
                                             <FlexLayout JustifyContent="SpaceBetween" AlignItems="Center">
                                                 <StackLayout Orientation="Horizontal">
                                                     <Label Text="&#58830;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{DynamicResource BigenyGreen}" ClassId="{Binding Id}">
@@ -34,7 +30,7 @@
                                                             <TapGestureRecognizer Tapped="OnUpButtonTapped" CommandParameter="{Binding .}"/>
                                                         </Label.GestureRecognizers>
                                                     </Label>
-                                                    <Label Text="{Binding Rate}" FontSize="20" TextColor="{DynamicResource BigenyBlack}"/>
+                                                    <Label Text="{Binding Rate}" FontSize="20" Style="{StaticResource BigenyLabel}"/>
                                                     <Label Text="&#58831;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{DynamicResource BigenyRed}"  ClassId="{Binding Id}">
                                                         <Label.GestureRecognizers>
                                                             <TapGestureRecognizer Tapped="OnDownButtonTapped" CommandParameter="{Binding .}"/>
