@@ -14,6 +14,7 @@ namespace Bigeny
         {
             InitializeComponent();
             MainPage = new Loading();
+            //MainPage = new DialogPreview();
             //MainPage = new ChannelPreview();
         }
 

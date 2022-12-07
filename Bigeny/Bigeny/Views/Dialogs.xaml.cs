@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Bigeny.Views.CreateDialog;
 
 namespace Bigeny.Views
 {
@@ -72,6 +73,30 @@ namespace Bigeny.Views
         private async void dialogs_listView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             await Navigation.PushModalAsync(new DialogPreview());
+        }
+
+        private void SearchLabel_Tapped(object sender, EventArgs e)
+        {
+            Search();
+        }
+
+        private void userName_searchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Search();
+        }
+
+        private void Search()
+        {
+            string findingString = userName_searchBar.Text;
+            List<DialogPreviewModel> tmpList;
+
+            if (string.IsNullOrEmpty(findingString))
+                tmpList = dialogPreviews.ToList();
+            else
+                tmpList = dialogPreviews.FindAll(x => x.Name.IndexOf(findingString, StringComparison.OrdinalIgnoreCase) > -1);
+
+            dialogs_listView.ItemsSource = tmpList;
+            dialogs_listView.HeightRequest = tmpList.Count * 100;
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Bigeny.Views.DialogPreview">
+             x:Class="Bigeny.Views.DialogPreview"
+             BackgroundColor="{DynamicResource BigenyWhite}">
     <ContentPage.Content>
         <StackLayout>
             <Frame BackgroundColor="{DynamicResource BigenyBlue}" HeightRequest="40" HasShadow="False">
@@ -18,6 +19,24 @@
                         <Image Source="avatar.png" Aspect="AspectFill" Scale="2"/>
                     </Frame>
                     <Label Text="username" FontSize="20" TextColor="{DynamicResource BigenyWhite}" Margin="0" FlexLayout.AlignSelf="Center"/>
+                </FlexLayout>
+            </Frame>
+
+            <ScrollView VerticalOptions="FillAndExpand">
+                <StackLayout x:Name="dialog_stack" Spacing="0">
+                </StackLayout>
+            </ScrollView>
+
+            <Frame HeightRequest="40" BackgroundColor="{DynamicResource BigenyBlue}" Padding="10" x:Name="sender_input_view" HasShadow="False">
+                <FlexLayout Direction="Row">
+                    <Frame FlexLayout.Grow="1" BorderColor="{DynamicResource BigenyBlack}" CornerRadius="100" Margin="0, 0, 20, 0" Padding="10,0,10,0" HasShadow="False">
+                        <Entry x:Name="sender_input"/>
+                    </Frame>
+                    <Label Text="&#57699;" TextColor="{DynamicResource BigenyWhite}" FontFamily="Material" FontSize="32" FlexLayout.AlignSelf="Center" Margin="0,0,10,0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Sender_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </FlexLayout>
             </Frame>
         </StackLayout>

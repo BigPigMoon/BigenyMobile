@@ -18,7 +18,7 @@
                 </FlexLayout>
             </Frame>
 
-            <ScrollView Margin="0,0,20,0">
+            <ScrollView VerticalOptions="FillAndExpand">
                 <ListView x:Name="posts_listView" HasUnevenRows="True" SelectionMode="None" SeparatorVisibility="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>

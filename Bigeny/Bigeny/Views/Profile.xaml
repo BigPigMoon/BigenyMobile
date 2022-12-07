@@ -23,6 +23,16 @@
                         <TapGestureRecognizer Tapped="PhoneChange_Tapped"/>
                     </Label.GestureRecognizers>
                 </Label>
+                <Label Text="&#58652;" FontFamily="Material" FontSize="28" TextColor="{DynamicResource BigenyWhite}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".05,.05,32,32">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ThemeSwitcher_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label IsVisible="False" Text="&#58648;" FontFamily="Material" FontSize="28" TextColor="{DynamicResource BigenyWhite}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".05,.05,32,32">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ThemeSwitcher_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
             </AbsoluteLayout>
 
             <StackLayout>
@@ -39,7 +49,7 @@
             </StackLayout>
 
             <Button Text="Logout" Clicked="Logout_Clicked" Style="{StaticResource BigenyButton}"
-                    Margin="40, 250, 40, 0"
+                    Margin="40, 230, 40, 0"
                     Padding="0, 15, 0, 15"/>
         </FlexLayout>
     </ContentPage.Content>

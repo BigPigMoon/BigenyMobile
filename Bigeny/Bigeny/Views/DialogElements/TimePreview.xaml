@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bigeny.Views.DialogElements.TimePreview">
+    <Frame BackgroundColor="{DynamicResource BigenyGray}" CornerRadius="25" WidthRequest="100" HorizontalOptions="Center" Padding="20,10,20,10" HasShadow="False">
+        <Label x:Name="date_label" Text="" TextColor="{DynamicResource BigenyBlack}" FontSize="16" HorizontalOptions="Center"/>
+    </Frame>
+</ContentView>

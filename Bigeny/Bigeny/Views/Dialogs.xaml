@@ -5,54 +5,66 @@
              BackgroundColor="{DynamicResource BigenyWhite}">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <ScrollView Margin="0,0,20,0">
-                <ListView x:Name="dialogs_listView"
+            <StackLayout Orientation="Vertical">
+                <Frame HeightRequest="50" BackgroundColor="{DynamicResource BigenyWhite}" BorderColor="{DynamicResource BigenyBlack}" CornerRadius="100" Padding="20,0,20,0" Margin="20" HasShadow="False">
+                    <FlexLayout JustifyContent="Center" AlignItems="Center">
+                        <Entry x:Name="userName_searchBar" TextColor="{DynamicResource BigenyBlack}" FlexLayout.Grow="1" TextChanged="userName_searchBar_TextChanged" Placeholder="Search users..."/>
+                        <Label Text="&#59574;" TextColor="{DynamicResource BigenyBlack}" FontFamily="Material" FontSize="32" Margin="10,0,10,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SearchLabel_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </FlexLayout>
+                </Frame>
+                <ScrollView VerticalOptions="FillAndExpand">
+                    <ListView x:Name="dialogs_listView"
                           HasUnevenRows="True"
                           SelectionMode="None"
                           SeparatorVisibility="None"
                           ItemTapped="dialogs_listView_ItemTapped">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <Frame HorizontalOptions="FillAndExpand"
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <Frame HorizontalOptions="FillAndExpand"
                                            BackgroundColor="{DynamicResource BigenyGray}"
                                            Margin="5"
                                            Padding="10"
                                            HasShadow="False"
                                            CornerRadius="10">
-                                        <FlexLayout Direction="Row">
-                                            <Frame CornerRadius="100"
+                                            <FlexLayout Direction="Row">
+                                                <Frame CornerRadius="100"
                                                    HeightRequest="64"
                                                    WidthRequest="64"
                                                    Padding="0"
                                                    HasShadow="False"
                                                    Margin="0,0,20,0">
-                                                <Image Source="{Binding PhotoUri}" x:Name="avatar_image"
+                                                    <Image Source="{Binding PhotoUri}" x:Name="avatar_image"
                                                        HorizontalOptions="Center"
                                                        VerticalOptions="Center"/>
-                                            </Frame>
-                                            <StackLayout FlexLayout.Grow="1">
-                                                <Label Text="{Binding Name}"
+                                                </Frame>
+                                                <StackLayout FlexLayout.Grow="1">
+                                                    <Label Text="{Binding Name}"
                                                TextColor="{DynamicResource BigenyBlack}"
                                                FontSize="20"/>
-                                                <Label Text="{Binding LastMessage}"
+                                                    <Label Text="{Binding LastMessage}"
                                                        TextColor="{DynamicResource BigenyBlack}"
                                                        FontSize="16"/>
-                                            </StackLayout>
-                                            <BoxView IsVisible="{Binding IsReaded}"
+                                                </StackLayout>
+                                                <BoxView IsVisible="{Binding IsReaded}"
                                                      CornerRadius="100"
                                                      Color="{DynamicResource BigenyBlue}"
                                                      WidthRequest="16" HeightRequest="16"
                                                      FlexLayout.AlignSelf="Center"/>
-                                        </FlexLayout>
-                                    </Frame>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollView>
+                                            </FlexLayout>
+                                        </Frame>
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+            </StackLayout>
             <ImageButton AbsoluteLayout.LayoutFlags="PositionProportional"
                          AbsoluteLayout.LayoutBounds=".95,.97,60,60"
                              Source="plus.png"

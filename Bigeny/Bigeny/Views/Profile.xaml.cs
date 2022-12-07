@@ -44,5 +44,10 @@ namespace Bigeny.Views
         {
 
         }
+
+        private void ThemeSwitcher_Tapped(object sender, EventArgs e)
+        {
+
+        }
     }
 }
