@@ -29,6 +29,17 @@ namespace Bigeny.Views
             }
         }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            var source = UsersService.GetAvatar(await UsersService.GetMe());
+            if (source.GetType() == typeof(string))
+                avatar_img.Source = (string)source;
+            else
+                avatar_img.Source = (UriImageSource)source;
+        }
+
         private void Logout_Clicked(object sender, EventArgs e)
         {
             AuthService.Logout();
@@ -46,9 +57,14 @@ namespace Bigeny.Views
             rename_Entry.IsEnabled = !rename_Entry.IsEnabled;
         }
 
-        private void AvatarChange_Tapped(object sender, EventArgs e)
+        private async void AvatarChange_Tapped(object sender, EventArgs e)
         {
-
+            await UsersService.UploadAvatar();
+            var source = UsersService.GetAvatar(await UsersService.GetMe());
+            if (source.GetType() == typeof(string))
+                avatar_img.Source = (string)source;
+            else
+                avatar_img.Source = (UriImageSource)source;
         }
 
         private void PhoneChange_Tapped(object sender, EventArgs e)

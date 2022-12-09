@@ -3,6 +3,7 @@ using Bigeny.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -133,6 +134,34 @@ namespace Bigeny.Http
             return JsonConvert.DeserializeObject<List<Users>>(usersJson);
         }
 
+        public static async Task<Users> GetMe(Tokens tokens)
+        {
+            HttpClient headerApi = new HttpClient()
+            {
+                BaseAddress = api.BaseAddress
+            };
+
+            headerApi.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokens.AccessToken);
+            HttpResponseMessage res = await headerApi.GetAsync("users/me");
+
+            if (res.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Tokens newTokens = await Refresh(tokens.RefreshToken);
+                if (newTokens != null)
+                {
+                    headerApi.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", newTokens.AccessToken);
+                    res = await headerApi.GetAsync("users/me");
+                }
+                else
+                    return null;
+            }
+            if (res.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                return null;
+            string usersJson = await res.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Users>(usersJson);
+        }
+
         public static async Task<List<Users>> GetUsersNotme(Tokens tokens)
         {
             HttpClient headerApi = new HttpClient()
@@ -159,6 +188,39 @@ namespace Bigeny.Http
             string usersJson = await res.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<List<Users>>(usersJson);
+        }
+
+        public static async Task<Users> UploadAvatar(Tokens tokens, Stream stream, string filename)
+        {
+            HttpClient headerApi = new HttpClient()
+            {
+                BaseAddress = api.BaseAddress
+            };
+
+            var formData = new MultipartFormDataContent
+            {
+                { new StreamContent(stream), "image", filename }
+            };
+
+            headerApi.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokens.AccessToken);
+            HttpResponseMessage res = await headerApi.PostAsync("users/uploadAvatar", formData);
+
+            if (res.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Tokens newTokens = await Refresh(tokens.RefreshToken);
+                if (newTokens != null)
+                {
+                    headerApi.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", newTokens.AccessToken);
+                    res = await headerApi.PostAsync("users/uploadAvatar", formData);
+                }
+                else
+                    return null;
+            }
+            if (res.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                return null;
+            string usersJson = await res.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Users>(usersJson);
         }
 
         public static async Task<List<Dialog>> GetDialogs(Tokens tokens)

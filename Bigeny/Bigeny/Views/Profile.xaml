@@ -9,7 +9,7 @@
                 <Image Source="fonphoto.png" HeightRequest="240" HorizontalOptions="FillAndExpand" Aspect="AspectFill"/>
                 <Frame BorderColor="{DynamicResource BigenyBlack}" CornerRadius="100" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".5,1,200,200" Padding="0">
                     <Frame BorderColor="{DynamicResource BigenyBlack}" CornerRadius="100">
-                        <Image Source="avatar.png"/>
+                        <Image x:Name="avatar_img" Scale="1.25"/>
                     </Frame>
                 </Frame>
                 <Frame AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".68,.4,64,64" CornerRadius="100" Padding="0" BackgroundColor="{DynamicResource BigenyBlue}">

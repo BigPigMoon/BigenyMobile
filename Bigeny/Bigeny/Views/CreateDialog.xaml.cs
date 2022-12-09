@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bigeny.Models;
+using Bigeny.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -18,28 +20,35 @@ namespace Bigeny.Views
         public class UserPreview
         {
             public string Name { get; set; }
-            public string PhotoUri { get; set; }
+            public object PhotoUri { get; set; }
         };
 
         public List<UserPreview> userPreview;
+        private List<Users> users;
         public List<UserPreview> selectedItems = new List<UserPreview>();
 
         public CreateDialog()
         {
             InitializeComponent();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            users = await UsersService.GetUsersNotme();
             LoadUserPreview();
         }
 
         private void LoadUserPreview()
         {
-            userPreview = new List<UserPreview>
+            // i do this changes
+            userPreview = new List<UserPreview>();
+
+            foreach (Users user in users)
             {
-                new UserPreview { Name = "Вася", PhotoUri = "avatar.png" },
-                new UserPreview { Name = "Маша", PhotoUri = "avatar.png" },
-                new UserPreview { Name = "Саша", PhotoUri = "avatar.png" },
-                new UserPreview { Name = "Саша Белый", PhotoUri = "avatar.png" },
-                new UserPreview { Name = "Рома", PhotoUri = "avatar.png" },
-            };
+                var source = UsersService.GetAvatar(user);
+                userPreview.Add(new UserPreview { Name = user.Nickname, PhotoUri = source });
+            }
 
             users_listView.ItemsSource = userPreview;
             users_listView.HeightRequest = 100 * userPreview.Count;
@@ -60,7 +69,7 @@ namespace Bigeny.Views
             }
             else
             {
-                userPreview.Find(x => x.Name == item.Name).PhotoUri = "avatar.png";
+                userPreview.Find(x => x.Name == item.Name).PhotoUri = UsersService.GetAvatar(users.Find(x => x.Nickname == item.Name));
                 selectedItems.Remove(item);
             }
 
