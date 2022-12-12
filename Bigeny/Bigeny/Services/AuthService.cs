@@ -12,7 +12,7 @@ namespace Bigeny.Services
     {
         public static async Task<bool> Login(string email, string password)
         {
-            Tokens tokens = await API.Login(email, password);
+            Tokens tokens = await AuthApi.Login(email, password);
             if (tokens == null)
                 return false;
             try
@@ -30,7 +30,7 @@ namespace Bigeny.Services
 
         public static async Task<bool> Register(string email, string password, string nickname)
         {
-            Tokens tokens = await API.Registration(email, password, nickname);
+            Tokens tokens = await AuthApi.Registration(email, password, nickname);
             if (tokens == null)
                 return false;
             try
@@ -51,7 +51,7 @@ namespace Bigeny.Services
             try
             {
                 string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                await API.Logout(at);
+                await AuthApi.Logout(at);
                 SecureStorage.Remove(StorageKey.AccessToken);
                 SecureStorage.Remove(StorageKey.RefreshToken);
             }

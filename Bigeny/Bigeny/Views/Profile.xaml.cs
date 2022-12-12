@@ -1,12 +1,16 @@
-﻿using Bigeny.Services;
+﻿using Bigeny.Models;
+using Bigeny.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Xamarin.CommunityToolkit;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.CommunityToolkit.Extensions;
+using Bigeny.Http;
 
 namespace Bigeny.Views
 {
@@ -33,11 +37,14 @@ namespace Bigeny.Views
         {
             base.OnAppearing();
 
-            var source = UsersService.GetAvatar(await UsersService.GetMe());
+            User me = await UsersService.GetMe();
+            var source = StorageService.Download(me.Avatar);
             if (source.GetType() == typeof(string))
                 avatar_img.Source = (string)source;
             else
                 avatar_img.Source = (UriImageSource)source;
+
+            rename_Entry.Text = me.Nickname;
         }
 
         private void Logout_Clicked(object sender, EventArgs e)
@@ -46,21 +53,30 @@ namespace Bigeny.Views
             Application.Current.MainPage = new Login();
         }
 
-        private void Rename_Entry(object sender, EventArgs e)
+        private async void Rename_Entry(object sender, EventArgs e)
         {
-            if (rename_Entry.IsEnabled)
+            // TODO: if user doesn't change anything
+            if (!rename_Entry.IsReadOnly)
             {
+                User updated = await UsersService.ChangeNickname(rename_Entry.Text);
+                if (updated == null)
+                {
+                    rename_Entry.Text = (await UsersService.GetMe()).Nickname;
+                    await this.DisplayToastAsync("This name is already hosted");
+                }
+                else
+                {
+                    rename_Entry.Text = updated.Nickname;
+                    await this.DisplayToastAsync("Your name was changed");
+                }
             }
-            else
-            {
-            }
-            rename_Entry.IsEnabled = !rename_Entry.IsEnabled;
+            rename_Entry.IsReadOnly = !rename_Entry.IsReadOnly;
         }
 
         private async void AvatarChange_Tapped(object sender, EventArgs e)
         {
-            await UsersService.UploadAvatar();
-            var source = UsersService.GetAvatar(await UsersService.GetMe());
+            var user = await UsersService.UploadAvatar();
+            var source = StorageService.Download(user.Avatar);
             if (source.GetType() == typeof(string))
                 avatar_img.Source = (string)source;
             else

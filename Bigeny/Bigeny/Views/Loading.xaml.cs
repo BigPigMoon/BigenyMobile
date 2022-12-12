@@ -21,7 +21,7 @@ namespace Bigeny.Views
 
         protected override async void OnAppearing()
         {
-            List<Users> users = await UsersService.GetUsers();
+            User users = await UsersService.GetMe();
             if (users != null)
                 Application.Current.MainPage = new Dashboard();
             else

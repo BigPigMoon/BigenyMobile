@@ -3,49 +3,60 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Bigeny.Views.DialogElements;
+using Bigeny.Models;
+using System.Threading.Tasks;
+using Bigeny.Services;
+using System.Collections.Generic;
+using System.Linq;
+using System.Globalization;
 
 namespace Bigeny.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DialogPreview : ContentPage
     {
-        public DialogPreview()
+        private int Id;
+
+        public DialogPreview(int id)
         {
             InitializeComponent();
-            LoadMessages();
+            Id = id;
         }
 
-        private void LoadMessages()
+        protected override async void OnAppearing()
         {
-            AddDate("3 сентября");
-            AddMessage("Ты пидор", "9:30", true);
-            AddMessage("Ты пидор", "9:30", true);
-            AddMessage("А может Ты пидор", "9:30", true);
-            AddMessage("Нет Ты пидор", "9:30", false);
-            AddMessage("Ну я пидор", "9:30", true);
-            AddMessage("Ты пидор", "9:30", false);
-            AddDate("3 сентября");
-            AddMessage("Ты пидор", "9:30", true);
-            AddMessage("Ты пидор", "9:30", true);
-            AddMessage("А может Ты пидор", "9:30", true);
-            AddMessage("Нет Ты пидор", "9:30", false);
-            AddMessage("Ну я пидор", "9:30", true);
-            AddMessage("Ты пидор", "9:30", false);
-            AddDate("3 сентября");
-            AddMessage("Я", "9:30", true);
-            AddMessage("А", "9:30", true);
-            AddMessage("Ты пидорТы пидорТы пидорТы пидорТы пидорТы пидорТы пидорТы пидорТы пидорТы пидорТы пидор", "9:30", true);
-            AddMessage("А может Ты пидор", "9:30", true);
-            AddMessage("Нет Ты пидор", "9:30", false);
-            AddMessage("Ну я пидор", "9:30", true);
-            AddMessage("Ты пидор", "9:30", false);
-            AddDate("3 сентября");
-            AddMessage("Ты пидор", "9:30", true);
-            AddMessage("Ты пидор", "9:30", true);
-            AddMessage("А может Ты пидор", "9:30", true);
-            AddMessage("Нет Ты пидор", "9:30", false);
-            AddMessage("Ну я пидор", "9:30", true);
-            AddMessage("Ты пидор", "9:30", false);
+            base.OnAppearing();
+            Dialog dialog = await MessagesService.GetDialog(Id);
+            var source = StorageService.Download(dialog.avatar);
+            if (source.GetType() == typeof(string))
+                dialogAvatar_Image.Source = (string)source;
+            else
+                dialogAvatar_Image.Source = (UriImageSource)source;
+            dialogName_Label.Text = dialog.name;
+            await LoadMessages(Id);
+        }
+
+        private async Task LoadMessages(int id)
+        {
+            List<Message> messages = await MessagesService.GetMessages(id);
+            if (messages.Count == 0) return;
+            dialog_stack.Children.Clear();
+            var user = await UsersService.GetMe();
+            DateTime lastDate = messages[0].createdAt.ToLocalTime();
+            DateTimeFormatInfo info = CultureInfo.GetCultureInfo("ru-RU").DateTimeFormat;
+            AddDate($"{lastDate.Day} {info.MonthGenitiveNames[lastDate.Month - 1]}");
+            foreach(var message in messages)
+            {
+                if (message.createdAt.ToLocalTime().Day > lastDate.Day)
+                {
+                    lastDate= message.createdAt.ToLocalTime();
+                    AddDate($"{lastDate.Day} {lastDate.Month}");
+                }
+                AddMessage(message.content, message.createdAt.ToLocalTime().ToString("HH:MM"), message.ownerId != user.Id);
+            }
+            var lastChild = dialog_stack.Children.Last();
+            if (lastChild != null)
+                await message_ScrollView.ScrollToAsync(lastChild, ScrollToPosition.MakeVisible, false);
         }
 
         private void AddMessage(string message, string time, bool isLeft)
@@ -68,9 +79,11 @@ namespace Bigeny.Views
 
         }
 
-        private void Sender_Tapped(object sender, EventArgs e)
+        private async void Sender_Tapped(object sender, EventArgs e)
         {
-
+            await MessagesService.Send(Id, sender_input.Text);
+            await LoadMessages(Id);
+            sender_input.Text = "";
         }
     }
 }

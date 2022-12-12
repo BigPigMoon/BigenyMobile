@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static Bigeny.Views.CreateDialog;
@@ -19,13 +19,16 @@ namespace Bigeny.Views
     {
         public class UserPreview
         {
+            public int Id { get; set; }
             public string Name { get; set; }
             public object PhotoUri { get; set; }
+            public string Avatar { get; set; }
         };
 
         public List<UserPreview> userPreview;
-        private List<Users> users;
+        private List<User> users;
         public List<UserPreview> selectedItems = new List<UserPreview>();
+        public string avatar = null;
 
         public CreateDialog()
         {
@@ -35,7 +38,7 @@ namespace Bigeny.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            users = await UsersService.GetUsersNotme();
+            users = await UsersService.GetUsers();
             LoadUserPreview();
         }
 
@@ -44,10 +47,10 @@ namespace Bigeny.Views
             // i do this changes
             userPreview = new List<UserPreview>();
 
-            foreach (Users user in users)
+            foreach (User user in users)
             {
-                var source = UsersService.GetAvatar(user);
-                userPreview.Add(new UserPreview { Name = user.Nickname, PhotoUri = source });
+                var source = StorageService.Download(user.Avatar);
+                userPreview.Add(new UserPreview { Name = user.Nickname, PhotoUri = source, Id=user.Id, Avatar = user.Avatar });
             }
 
             users_listView.ItemsSource = userPreview;
@@ -69,7 +72,7 @@ namespace Bigeny.Views
             }
             else
             {
-                userPreview.Find(x => x.Name == item.Name).PhotoUri = UsersService.GetAvatar(users.Find(x => x.Nickname == item.Name));
+                userPreview.Find(x => x.Name == item.Name).PhotoUri = StorageService.Download(users.Find(x => x.Nickname == item.Name).Avatar);
                 selectedItems.Remove(item);
             }
 
@@ -103,7 +106,59 @@ namespace Bigeny.Views
 
         private async void NextButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PopModalAsync();
+            List<int> users = new List<int>();
+            for (int i = 0; i < selectedItems.Count; i++)
+            {
+                users.Add(selectedItems[i].Id);
+            }
+
+            if (selectedItems.Count == 0)
+            {
+                await this.DisplayToastAsync("Please, choise some users");
+                return;
+            }
+
+            string name;
+            if (selectedItems.Count >= 2)
+            {
+                if (chat_name_Entry.Text.Length == 0)
+                {
+                    await this.DisplayToastAsync("Please, set name for dialog");
+                    return;
+                }
+                name = chat_name_Entry.Text;
+            }
+            else
+            {
+                name = selectedItems[0].Name;
+            }
+
+            if (avatar == null)
+            {
+                if (selectedItems.Count < 2)
+                    avatar = selectedItems[0].Avatar;
+                else
+                {
+                    await this.DisplayToastAsync("Please, set image for dialog");
+                    return;
+                }
+            }
+
+            bool result = await MessagesService.CreateDialog(users, name, avatar);
+            if (!result)
+                await this.DisplayToastAsync("This dialog not unique!");
+            else
+                await Navigation.PopModalAsync();
+        }
+
+        private async void avatarImage_Clicked(object sender, EventArgs e)
+        {
+            avatar = await StorageService.Upload();
+            object source = StorageService.Download(avatar);
+            if (source.GetType() == typeof(string))
+                avatar_Image.Source = (string)StorageService.Download(avatar);
+            else
+                avatar_Image.Source = (UriImageSource)StorageService.Download(avatar);
         }
     }
 }

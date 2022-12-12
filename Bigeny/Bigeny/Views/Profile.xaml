@@ -39,7 +39,7 @@
             <StackLayout>
                 <Frame CornerRadius="10" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}" Margin="20, 10, 20, 10">
                     <FlexLayout Direction="Row" HeightRequest="50">
-                            <Entry x:Name="rename_Entry" TextColor="{DynamicResource BigenyWhite}" PlaceholderColor="{DynamicResource BigenyWhite}" FlexLayout.Grow="1" IsEnabled="False"/>
+                            <Entry x:Name="rename_Entry" TextColor="{DynamicResource BigenyWhite}" PlaceholderColor="{DynamicResource BigenyWhite}" FlexLayout.Grow="1" IsReadOnly="True"/>
                         <Label Text="&#59810;" FontFamily="Material" FontSize="28" Style="{StaticResource BigenyLabel}" FlexLayout.AlignSelf="Center" Margin="20,0,0,0">
                                 <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Rename_Entry"/>

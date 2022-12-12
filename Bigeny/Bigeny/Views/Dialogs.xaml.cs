@@ -1,12 +1,10 @@
 ﻿using Bigeny.Models;
+using Bigeny.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Bigeny.Views.CreateDialog;
 
 namespace Bigeny.Views
 {
@@ -14,65 +12,57 @@ namespace Bigeny.Views
     public partial class Dialogs : ContentPage
     {
         public class DialogPreviewModel {
+            public int Id { get; set; }
             public string Name { get; set; }
             public string LastMessage { get; set; }
-            // change string to URI
-            public string PhotoUri { get; set; }
+            public object PhotoUri { get; set; }
             public bool IsReaded { get; set; }
         };
 
         public List<DialogPreviewModel> dialogPreviews;
+        public List<Dialog> dialogs;
 
         public Dialogs()
         {
             InitializeComponent();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            dialogs = await MessagesService.GetDialogs();
             LoadDialogsPreview();
         }
 
         private void LoadDialogsPreview()
         {
-            dialogPreviews = new List<DialogPreviewModel>
+            dialogPreviews = new List<DialogPreviewModel>();
+            foreach (var dialog in dialogs)
             {
-                new DialogPreviewModel
+                var avatar = StorageService.Download(dialog.avatar);
+                dialogPreviews.Add(new DialogPreviewModel
                 {
-                    Name = "Пепега",
-                    LastMessage = "Привет",
-                    PhotoUri = "avatar.png",
-                    IsReaded = false,
-                },
-                new DialogPreviewModel
-                {
-                    Name = "Пепега2",
-                    LastMessage = "Здорова",
-                    PhotoUri = "https://s3.amazonaws.com/stickers.wiki/mmdpepe_stickers/163514.512.webp",
-                    IsReaded = true,
-                },
-                new DialogPreviewModel
-                {
-                    Name = "Пепега3",
-                    LastMessage = "Куку",
-                    PhotoUri = "avatar.png",
-                    IsReaded = false,
-                },
-                new DialogPreviewModel
-                {
-                    Name = "Пепега4",
-                    LastMessage = "ААААА",
-                    PhotoUri = "avatar.png",
-                    IsReaded = true,
-                },
-            };
+                    Id = dialog.id,
+                    Name = dialog.name,
+                    PhotoUri = avatar,
+                    IsReaded = !dialog.isReaded,
+                    LastMessage = dialog.messages.Count == 0 ? "" : dialog.messages[0].content
+                });
+            }
             dialogs_listView.ItemsSource = dialogPreviews;
         }
 
         private async void ImageButton_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new CreateDialog());
+            // TODO: PLS UPDATE SCREEN AFTER RETURN FROM THIS SHIT
         }
 
         private async void dialogs_listView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            await Navigation.PushModalAsync(new DialogPreview());
+            var item = (DialogPreviewModel)e.Item;
+            await Navigation.PushModalAsync(new DialogPreview(item.Id));
         }
 
         private void SearchLabel_Tapped(object sender, EventArgs e)

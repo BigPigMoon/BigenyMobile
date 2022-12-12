@@ -16,13 +16,13 @@
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="Avatar_Tapped"/>
                         </Frame.GestureRecognizers>
-                        <Image Source="avatar.png" Aspect="AspectFill" Scale="2"/>
+                        <Image x:Name="dialogAvatar_Image" Scale="2.5"/>
                     </Frame>
-                    <Label Text="username" FontSize="20" Style="{StaticResource BigenyHeaderLabel}" Margin="0" FlexLayout.AlignSelf="Center"/>
+                    <Label x:Name="dialogName_Label" FontSize="20" Style="{StaticResource BigenyHeaderLabel}" Margin="0" FlexLayout.AlignSelf="Center"/>
                 </FlexLayout>
             </Frame>
 
-            <ScrollView VerticalOptions="FillAndExpand">
+            <ScrollView VerticalOptions="FillAndExpand" x:Name="message_ScrollView">
                 <StackLayout x:Name="dialog_stack" Spacing="0">
                 </StackLayout>
             </ScrollView>

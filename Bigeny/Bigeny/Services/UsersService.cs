@@ -11,7 +11,7 @@ namespace Bigeny.Services
 {
     internal class UsersService
     {
-        public static async Task<Users> GetMe()
+        public static async Task<User> GetMe()
         {
             try
             {
@@ -19,7 +19,7 @@ namespace Bigeny.Services
                 string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
 
                 Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-                return await API.GetMe(tok);
+                return await UserApi.GetMe(tok);
             }
             catch (Exception ex)
             {
@@ -28,7 +28,7 @@ namespace Bigeny.Services
             }
         }
 
-        public static async Task<List<Users>> GetUsers()
+        public static async Task<List<User>> GetUsers()
         {
             try
             {
@@ -36,7 +36,7 @@ namespace Bigeny.Services
                 string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
 
                 Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-                return await API.GetUsers(tok);
+                return await UserApi.GetUsers(tok);
             }
             catch (Exception ex)
             {
@@ -45,24 +45,7 @@ namespace Bigeny.Services
             }
         }
 
-        public static async Task<List<Users>> GetUsersNotme()
-        {
-            try
-            {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-                return await API.GetUsersNotme(tok);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return null;
-            }
-        }
-
-        public static async Task<Users> UploadAvatar()
+        public static async Task<User> UploadAvatar()
         {
             try
             {
@@ -71,13 +54,8 @@ namespace Bigeny.Services
 
                 Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
 
-                var pickedImg = await FilePicker.PickAsync(new PickOptions { FileTypes = FilePickerFileType.Images, PickerTitle = "Pick the image" });
-                if (pickedImg == null) return null;
-                var cropResult = await CropImageService.Instance.CropImage(pickedImg.FullPath, CropRatioType.Square);
-                var stream = await pickedImg.OpenReadAsync();
-                var filename = pickedImg.FileName;
-
-                return await API.UploadAvatar(tok, stream, filename);
+                string filename = await StorageService.Upload();
+                return await UserApi.UpdateAvatar(tok, filename);
             }
             catch (Exception ex)
             {
@@ -86,10 +64,22 @@ namespace Bigeny.Services
             }
         }
 
-        public static object GetAvatar(Users user)
+        public static async Task<User> ChangeNickname(string newName)
         {
-            if (user.AvatarImg == null || user.AvatarImg.Length == 0) return "notfound.png";
-            return new UriImageSource { Uri = new Uri("http://45.132.1.89:3000/users/downloadAvatar/" + user.AvatarImg), CachingEnabled=true, CacheValidity=new TimeSpan(10, 0,0,0)};
+            try
+            {
+                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
+                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
+
+                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+
+                return await UserApi.ChangeName(tok, newName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
         }
     }
 }
