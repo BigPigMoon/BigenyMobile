@@ -5,16 +5,16 @@
              Style="{StaticResource BigenyBackground}">
     <ContentPage.Content>
         <FlexLayout Direction="Column">
-            <Label Text="Welcome" FontSize="52" FontAttributes="Bold" Style="{StaticResource BigenyLabel}" Margin="20, 20, 0, 0"/>
-            <Label Text="Back" FontSize="52" FontAttributes="Bold" Style="{StaticResource BigenyLabel}" Margin="20, 0, 0, 60"/>
-            <Label Text="Email" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
+            <Label Text="Добро" FontSize="52" FontAttributes="Bold" Style="{StaticResource BigenyLabel}" Margin="20, 20, 0, 0"/>
+            <Label Text="Пожаловать" FontSize="52" FontAttributes="Bold" Style="{StaticResource BigenyLabel}" Margin="20, 0, 0, 60"/>
+            <Label Text="Почта" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
             <Frame CornerRadius="10" Margin="40, 0, 40, 0" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
                 <FlexLayout HeightRequest="45" JustifyContent="Center" AlignItems="Center">
                     <Label Text="&#57574;" FontSize="26" Style="{StaticResource BigenyLabel}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
                     <Entry x:Name="email_input" Style="{StaticResource BigenyEntry}" FlexLayout.Grow="1"/>
                 </FlexLayout>
             </Frame>
-            <Label Text="Password" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
+            <Label Text="Пароль" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
             <Frame CornerRadius="10" Margin="40, 0, 40, 100" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
                 <FlexLayout HeightRequest="45" JustifyContent="Center" AlignItems="Center">
                     <Label Text="&#59543;" FontSize="26" Style="{StaticResource BigenyLabel}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
@@ -28,7 +28,7 @@
             </Frame>
             <Button
                 Clicked="Login_Clicked"
-                Text="Sign in"
+                Text="Войти"
                 Style="{StaticResource BigenyButton}"
                 Margin="40, 20, 40, 20"
                 Padding="0, 15, 0, 15"
@@ -42,7 +42,7 @@
             </ContentView>
             <Button
                 Clicked="Signup_Clicked"
-                Text="Sign up!"
+                Text="Зарегистрироваться"
                 Style="{StaticResource BigenyButton}"
                 Margin="40, 20, 40, 20"
                 Padding="0, 15, 0, 15"

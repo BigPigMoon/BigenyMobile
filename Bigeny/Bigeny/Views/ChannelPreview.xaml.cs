@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Bigeny.Models;
+using Bigeny.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Bigeny.Views.Wall;
 
 namespace Bigeny.Views
 {
@@ -19,70 +20,128 @@ namespace Bigeny.Views
             public string Name { get; set; }
             public string Date { get; set; }
             public string Content { get; set; }
+            public object Image { get; set; }
             public int Rate { get; set; }
+            public Color RateColorUp { get; set; }
+            public Color RateColorDown { get; set; }
+            public Color RateColor { get; set; }
         };
 
         List<PostPreview> wallPosts;
+        Channel Channel;
+        int Id;
+        int UserId;
+        bool UserSubbed = false;
+        string messageImg = null;
 
-        public ChannelPreview()
+        public ChannelPreview(int id)
         {
             InitializeComponent();
-            LoadPost();
+            Id = id;
+            //UpdatePosts();
         }
 
-        private void LoadPost()
+        protected override async void OnAppearing()
         {
-            wallPosts = new List<PostPreview>
+            base.OnAppearing();
+
+            Channel = await ChannelService.GetChannel(Id);
+
+            var source = StorageService.Download(Channel.avatar);
+            if (source.GetType() == typeof(string))
+                channelAvatar_Image.Source = (string)source;
+            else
+                channelAvatar_Image.Source = (UriImageSource)source;
+            channelName_Label.Text = Channel.name;
+
+            var user = await UsersService.GetMe();
+            UserId = user.Id;
+            if (UserId != Channel.ownerId)
             {
-                new PostPreview
+                sender_input_view.IsVisible = false;
+                subButton_view.IsVisible = true;
+            }
+            else
+            {
+                sender_input_view.IsVisible = true;
+                subButton_view.IsVisible = false;
+            }
+
+            var subs = await ChannelService.GetSubsChannels();
+
+            foreach(var channel in subs)
+            {
+                if (channel.id == Id)
                 {
-                    Id = 1,
-                    Name="Новости киберспорта",
-                    Date="вчера в 13:45",
-                    Content="Кто-то там кого-то победил и зарботал сколько-то там денег и бла бла бла.",
-                    Rate=10,
-                },
-                new PostPreview
+                    sub_Button.Text = "Отписаться";
+                    UserSubbed = true;
+                }
+            }
+
+            await LoadPost();
+        }
+
+        private void UpdatePosts()
+        {
+            Device.StartTimer(TimeSpan.FromSeconds(5), () =>
+            {
+                Task.Run(async () => await LoadPost());
+
+                return true;
+            });
+        }
+
+        private async Task LoadPost()
+        {
+            wallPosts = new List<PostPreview>();
+
+            var posts = await PostService.GetPostsFromChannel(Channel.id);
+
+            foreach (var post in posts)
+            {
+                string beautyDate = UtilService.GetBeautyDate(post.createdAt.ToLocalTime());
+
+                PostRate rate = await PostService.GetPostRate(post.id);
+
+                var source = StorageService.Download(post.image);
+                if (source.GetType() == typeof(string) && (string)source == "notfound.png") source = null;
+
+                var p = new PostPreview
                 {
-                    Id = 2,
-                    Name="Новости киберспорта",
-                    Date="вчера в 13:45",
-                    Content="Кто-то там кого-то победил и зарботал сколько-то там денег и бла бла бла.",
-                    Rate=10,
-                },
-                new PostPreview
+                    Id = post.id,
+                    Content = post.content,
+                    Image = source,
+                    Date = beautyDate,
+                    Rate = rate.rate,
+                };
+
+                if (Preferences.Get("DarkTheme", false))
                 {
-                    Id = 3,
-                    Name="Новости киберспорта",
-                    Date="вчера в 13:45",
-                    Content="Кто-то там кого-то победил и зарботал сколько-то там денег и бла бла бла.",
-                    Rate=-20,
-                },
-                new PostPreview
+                    p.RateColorUp = Color.FromHex("#FAFAFA");
+                    p.RateColorDown = Color.FromHex("#FAFAFA");
+                    p.RateColor = Color.FromHex("#FAFAFA");
+                }
+                else
                 {
-                    Id = 4,
-                    Name="Новости киберспорта",
-                    Date="вчера в 13:45",
-                    Content="Кто-то там кого-то победил и зарботал сколько-то там денег и бла бла бла.",
-                    Rate=-10,
-                },
-                new PostPreview
-                {
-                    Id = 5,
-                    Name="Новости киберспорта",
-                    Date="вчера в 13:45",
-                    Content="Кто-то там кого-то победил и зарботал сколько-то там денег и бла бла бла.",
-                    Rate=0,
-                },
-                new PostPreview
-                {
-                    Id = 6,
-                    Name="Новости киберспорта",
-                    Date="вчера в 13:45",
-                    Content="Кто-то там кого-то победил и зарботал сколько-то там денег и бла бла бла.",
-                    Rate=9,
-                },
-            };
+                    p.RateColorUp = Color.FromHex("#210124");
+                    p.RateColorDown = Color.FromHex("#210124");
+                    p.RateColor = Color.FromHex("#210124");
+                }
+
+                if (rate.userRate > 0)
+                    p.RateColorUp = Color.FromHex("#06BA63");
+                else if (rate.userRate < 0)
+                    p.RateColorDown = Color.FromHex("#FF1B1C");
+
+                if (rate.rate > 0)
+                    p.RateColor = Color.FromHex("#06BA63");
+                else if (rate.rate < 0)
+                    p.RateColor = Color.FromHex("#FF1B1C");
+
+
+                wallPosts.Add(p);
+            }
+            
             posts_listView.ItemsSource = wallPosts;
         }
 
@@ -91,14 +150,30 @@ namespace Bigeny.Views
             await Navigation.PopModalAsync();
         }
 
-        private void OnUpButtonTapped(object sender, EventArgs e)
+        private async void OnUpButtonTapped(object sender, EventArgs e)
         {
-            var id = ((Label)sender).ClassId;
+            if (UserId == Channel.ownerId)
+            {
+                await this.DisplayToastAsync("Нельзя лайкать самого себя.");
+                return;
+            }
+
+            var id = Int32.Parse(((Label)sender).ClassId);
+            await PostService.SetPostRate(id, true);
+            await LoadPost();
         }
 
-        private void OnDownButtonTapped(object sender, EventArgs e)
+        private async void OnDownButtonTapped(object sender, EventArgs e)
         {
-            var id = ((Label)sender).ClassId;
+            if (UserId == Channel.ownerId)
+            {
+                await this.DisplayToastAsync("Нельзя дизлайкать самого себя.");
+                return;
+            }
+
+            var id = Int32.Parse(((Label)sender).ClassId);
+            await PostService.SetPostRate(id, false);
+            await LoadPost();
         }
 
         private async void Comment_Tapped(object sender, EventArgs e)
@@ -107,9 +182,44 @@ namespace Bigeny.Views
             await Navigation.PushModalAsync(new Comment());
         }
 
-        private void Sender_Tapped(object sender, EventArgs e)
+        private async void Sender_Tapped(object sender, EventArgs e)
         {
+            sender_Button.IsEnabled = false;
+            if (sender_input.Text != null && sender_input.Text.Length > 0)
+            {
+                await PostService.CreatePost(sender_input.Text, messageImg, Id);
+                await LoadPost();
+                messageImg = null;
+                pin_Button.Text = "\ue226";
+                sender_input.Text = "";
+            }
+            sender_Button.IsEnabled = true;
+        }
 
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            sub_Button.IsEnabled = false;
+            if (UserSubbed)
+                sub_Button.Text = "Подпиаться";
+            else
+                sub_Button.Text = "Отписаться";
+            UserSubbed = !UserSubbed;
+            await ChannelService.Subscribe(Id);
+            sub_Button.IsEnabled = true;
+        }
+
+        private async void Pin_Tapped(object sender, EventArgs e)
+        {
+            if (messageImg == null)
+            {
+                messageImg = await StorageService.Upload();
+                pin_Button.Text = "\ue5cd";
+            }
+            else
+            {
+                messageImg = null;
+                pin_Button.Text = "\ue226";
+            }
         }
     }
 }

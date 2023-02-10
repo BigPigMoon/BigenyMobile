@@ -5,10 +5,10 @@
              Style="{StaticResource BigenyBackground}">
     <ContentPage.Content>
         <FlexLayout Direction="Column">
-            <Label Text="Create" FontSize="52" FontAttributes="Bold" Style="{StaticResource BigenyLabel}" Margin="20, 20, 0, 0"/>
-            <Label Text="Account" FontSize="52" FontAttributes="Bold" Style="{StaticResource BigenyLabel}" Margin="20, 0, 0, 40"/>
+            <Label Text="Создать" FontSize="52" FontAttributes="Bold" Style="{StaticResource BigenyLabel}" Margin="20, 20, 0, 0"/>
+            <Label Text="Аккаунт" FontSize="52" FontAttributes="Bold" Style="{StaticResource BigenyLabel}" Margin="20, 0, 0, 40"/>
 
-            <Label Text="Email" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
+            <Label Text="Почта" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
             <Frame CornerRadius="10" Margin="40, 0, 40, 0" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
                 <FlexLayout HeightRequest="45" JustifyContent="Center" AlignItems="Center">
                     <Label Text="&#57574;" FontSize="26" Style="{StaticResource BigenyLabel}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
@@ -16,7 +16,7 @@
                 </FlexLayout>
             </Frame>
 
-            <Label Text="You name" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
+            <Label Text="Имя" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
             <Frame CornerRadius="10" Margin="40, 0, 40, 0" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
                 <FlexLayout HeightRequest="45" JustifyContent="Center" AlignItems="Center">
                     <Label Text="&#59475;" FontSize="26" Style="{StaticResource BigenyLabel}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
@@ -24,7 +24,7 @@
                 </FlexLayout>
             </Frame>
 
-            <Label Text="Password" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
+            <Label Text="Пароль" FontSize="26" Style="{StaticResource BigenyLabel}" Margin="50, 30, 0, 0"/>
             <Frame CornerRadius="10" Margin="40, 0, 40, 20" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
                 <FlexLayout HeightRequest="45" JustifyContent="Center" AlignItems="Center">
                     <Label Text="&#59543;" FontSize="26" Style="{StaticResource BigenyLabel}" FontFamily="Material" HeightRequest="24" WidthRequest="24" Margin="0,0,10,0"/>
@@ -37,7 +37,7 @@
                 </FlexLayout>
             </Frame>
             
-            <Button Clicked="Registration_Clicked" Text="Sign up!"
+            <Button Clicked="Registration_Clicked" Text="Зарегистрироваться"
                     Style="{StaticResource BigenyButton}"
                     Margin="40, 20, 40, 20"
                     Padding="0, 15, 0, 15"/>
@@ -50,7 +50,7 @@
                 </FlexLayout>
             </ContentView>
             
-            <Button Clicked="SignIn_Clicked" Text="Sign in"
+            <Button Clicked="SignIn_Clicked" Text="Войти"
                     Style="{StaticResource BigenyButton}"
                     Margin="40, 20, 40, 20"
                     Padding="0, 15, 0, 15"/>

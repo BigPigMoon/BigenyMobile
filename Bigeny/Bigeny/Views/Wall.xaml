@@ -15,7 +15,7 @@
                                         <StackLayout>
                                             <FlexLayout Direction="Row">
                                                 <Frame CornerRadius="100" HeightRequest="64" WidthRequest="64" Padding="0" HasShadow="False" Margin="0,0,20,0">
-                                                    <Image Source="avatar.png" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                    <Image Source="{Binding Avatar}" HorizontalOptions="Center" VerticalOptions="Center"/>
                                                 </Frame>
                                                 <StackLayout FlexLayout.Grow="1">
                                                     <Label Text="{Binding Name}" Style="{StaticResource BigenyLabel}" FontSize="20"/>
@@ -23,24 +23,18 @@
                                                 </StackLayout>
                                             </FlexLayout>
                                             <Label Text="{Binding Content}" FontSize="24" Padding="10" Style="{StaticResource BigenyLabel}"/>
-                                            <FlexLayout JustifyContent="SpaceBetween" AlignItems="Center">
+                                            <Image Source="{Binding Image}"/>
+                                            <FlexLayout JustifyContent="SpaceBetween" AlignItems="Center" Direction="RowReverse">
                                                 <StackLayout Orientation="Horizontal">
-                                                    <Label Text="&#58830;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{DynamicResource BigenyGreen}" ClassId="{Binding Id}">
+                                                    <Label Text="&#58830;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{Binding RateColorUp}" ClassId="{Binding Id}">
                                                         <Label.GestureRecognizers>
                                                             <TapGestureRecognizer Tapped="OnUpButtonTapped" CommandParameter="{Binding .}"/>
                                                         </Label.GestureRecognizers>
                                                     </Label>
-                                                    <Label Text="{Binding Rate}" FontSize="20" Style="{StaticResource BigenyLabel}"/>
-                                                    <Label Text="&#58831;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{DynamicResource BigenyRed}"  ClassId="{Binding Id}">
+                                                    <Label Text="{Binding Rate}" TextColor="{Binding RateColor}" FontSize="20" Style="{StaticResource BigenyLabel}"/>
+                                                    <Label Text="&#58831;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{Binding RateColorDown}"  ClassId="{Binding Id}">
                                                         <Label.GestureRecognizers>
                                                             <TapGestureRecognizer Tapped="OnDownButtonTapped" CommandParameter="{Binding .}"/>
-                                                        </Label.GestureRecognizers>
-                                                    </Label>
-                                                </StackLayout>
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label Text="&#57527;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{DynamicResource BigenyBlue}">
-                                                        <Label.GestureRecognizers>
-                                                            <TapGestureRecognizer Tapped="Comment_Tapped"/>
                                                         </Label.GestureRecognizers>
                                                     </Label>
                                                 </StackLayout>

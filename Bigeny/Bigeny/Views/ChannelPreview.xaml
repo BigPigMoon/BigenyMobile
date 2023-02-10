@@ -13,9 +13,9 @@
                         </Label.GestureRecognizers>
                     </Label>
                     <Frame HeightRequest="28" WidthRequest="28" FlexLayout.AlignSelf="Center" CornerRadius="100" Margin="0,0,20,0" HasShadow="False">
-                        <Image Source="avatar.png" Aspect="AspectFill" Scale="2"/>
+                        <Image x:Name="channelAvatar_Image" Scale="2.5"/>
                     </Frame>
-                    <Label Text="username" FontSize="20" Style="{StaticResource BigenyHeaderLabel}" Margin="0" FlexLayout.AlignSelf="Center"/>
+                    <Label x:Name="channelName_Label" Text="username" FontSize="20" Style="{StaticResource BigenyHeaderLabel}" Margin="0" FlexLayout.AlignSelf="Center"/>
                 </FlexLayout>
             </Frame>
 
@@ -32,24 +32,18 @@
                                                         <Label Text="{Binding Date}" Style="{StaticResource BigenyLabel}" FontSize="16"/>
                                                 </FlexLayout>
                                                 <Label Text="{Binding Content}" FontSize="24" Padding="10" Style="{StaticResource BigenyLabel}"/>
-                                                <FlexLayout JustifyContent="SpaceBetween" AlignItems="Center">
+                                                <Image Source="{Binding Image}"/>
+                                                <FlexLayout JustifyContent="SpaceBetween" AlignItems="Center" Direction="RowReverse">
                                                     <StackLayout Orientation="Horizontal">
-                                                        <Label x:Name="plusRate_butoon" Text="&#58830;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{DynamicResource BigenyGreen}" ClassId="{Binding Id}">
+                                                        <Label x:Name="plusRate_butoon" Text="&#58830;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{Binding RateColorUp}" ClassId="{Binding Id}">
                                                             <Label.GestureRecognizers>
                                                                 <TapGestureRecognizer Tapped="OnUpButtonTapped" CommandParameter="{Binding .}"/>
                                                             </Label.GestureRecognizers>
                                                         </Label>
-                                                        <Label Text="{Binding Rate}" FontSize="20" Style="{StaticResource BigenyLabel}"/>
-                                                        <Label x:Name="minusRate_butoon" Text="&#58831;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{DynamicResource BigenyRed}"  ClassId="{Binding Id}">
+                                                        <Label Text="{Binding Rate}" TextColor="{Binding RateColor}" FontSize="20" Style="{StaticResource BigenyLabel}"/>
+                                                        <Label x:Name="minusRate_butoon" Text="&#58831;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{Binding RateColorDown}"  ClassId="{Binding Id}">
                                                             <Label.GestureRecognizers>
                                                                 <TapGestureRecognizer Tapped="OnDownButtonTapped" CommandParameter="{Binding .}"/>
-                                                            </Label.GestureRecognizers>
-                                                        </Label>
-                                                    </StackLayout>
-                                                    <StackLayout Orientation="Horizontal">
-                                                        <Label Text="&#57527;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{DynamicResource BigenyBlue}"  ClassId="{Binding Id}">
-                                                            <Label.GestureRecognizers>
-                                                                <TapGestureRecognizer Tapped="Comment_Tapped" CommandParameter="{Binding .}"/>
                                                             </Label.GestureRecognizers>
                                                         </Label>
                                                     </StackLayout>
@@ -66,14 +60,24 @@
 
             <Frame HeightRequest="40" BackgroundColor="{DynamicResource BigenyBlue}" Padding="10" x:Name="sender_input_view">
                 <FlexLayout Direction="Row">
-                    <Frame FlexLayout.Grow="1" Style="{StaticResource BigenySearch}" CornerRadius="100" Margin="0, 0, 20, 0" Padding="10,0,10,0">
+                    <Frame FlexLayout.Grow="1" Style="{StaticResource BigenySearch}" CornerRadius="100" Margin="0, 0, 0, 0" Padding="10,0,10,0">
                         <Entry x:Name="sender_input" Style="{StaticResource BigenyEntry}"/>
                     </Frame>
-                    <Label Text="&#57699;" Style="{StaticResource BigenyHeaderLabel}" FontFamily="Material" FontSize="32" FlexLayout.AlignSelf="Center" Margin="0,0,10,0">
+                    <Label x:Name="pin_Button" Text="&#57894;" Style="{StaticResource BigenyLabel}" FontFamily="Material" FontSize="32" FlexLayout.AlignSelf="Center" Margin="0,0,10,0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Pin_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label x:Name="sender_Button"  Text="&#57699;" Style="{StaticResource BigenyHeaderLabel}" FontFamily="Material" FontSize="32" FlexLayout.AlignSelf="Center" Margin="0,0,10,0">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="Sender_Tapped"/>
                         </Label.GestureRecognizers>
                     </Label>
+                </FlexLayout>
+            </Frame>
+            <Frame HeightRequest="40" BackgroundColor="{DynamicResource BigenyBlue}" x:Name="subButton_view" IsVisible="False" Padding="10">
+                <FlexLayout Direction="Row">
+                    <Button x:Name="sub_Button" Style="{StaticResource BigenyButton}" FontSize="15" Text="Подписаться" Clicked="Button_Clicked" FlexLayout.Grow="1"/>
                 </FlexLayout>
             </Frame>
         </StackLayout>

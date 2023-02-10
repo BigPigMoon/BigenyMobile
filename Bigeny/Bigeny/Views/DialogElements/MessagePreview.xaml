@@ -4,8 +4,9 @@
              x:Class="Bigeny.Views.DialogElements.MessagePreview">
     <Frame x:Name="message_frame" Style="{StaticResource BigenyCard}" CornerRadius="25" Margin="10" MinimumWidthRequest="50" Padding="20,10,20,10" HasShadow="False">
         <StackLayout>
-            <Label x:Name="message_label" Text="" Style="{StaticResource BigenyLabel}" FontSize="20"/>
-            <Label x:Name="time_label" Text="" HorizontalOptions="End" Style="{StaticResource BigenyLabel}" FontSize="16"/>
+            <Label x:Name="from_label" Style="{StaticResource BigenyNameLabel}" FontSize="18"/>
+            <Label x:Name="message_label" Style="{StaticResource BigenyLabel}" FontSize="20"/>
+            <Label x:Name="time_label" HorizontalOptions="End" Style="{StaticResource BigenyLabel}" FontSize="16"/>
         </StackLayout>
     </Frame>
 </ContentView>

@@ -24,8 +24,15 @@ namespace Bigeny.Http
                 Encoding.UTF8,
                 "application/json"
             );
-
-            HttpResponseMessage res = await Api.api.PostAsync("auth/local/singin", data);
+            HttpResponseMessage res;
+            try
+            {
+                res = await Api.api.PostAsync("auth/local/singin", data);
+            }
+            catch
+            {
+                return null;
+            }
 
             if (res.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -49,7 +56,16 @@ namespace Bigeny.Http
                 "application/json"
             );
 
-            HttpResponseMessage res = await Api.api.PostAsync("auth/local/singup", data);
+            HttpResponseMessage res; 
+            try
+            {
+            res = await Api.api.PostAsync("auth/local/singup", data);
+
+            }
+            catch
+            {
+                return null;
+            }
 
             if (res.StatusCode == System.Net.HttpStatusCode.Created)
             {
@@ -69,7 +85,15 @@ namespace Bigeny.Http
             };
 
             headerApi.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            try
+            {
             await headerApi.PostAsync("auth/logout", null);
+
+            }
+            catch
+            {
+                return;
+            }
         }
 
         public static async Task<Tokens> Refresh(string refreshToken)
@@ -80,7 +104,15 @@ namespace Bigeny.Http
             };
 
             headerApi.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", refreshToken);
-            HttpResponseMessage res = await headerApi.PostAsync("auth/refresh", null);
+            HttpResponseMessage res;
+            try
+            {
+                res = await headerApi.PostAsync("auth/refresh", null);
+            }
+            catch
+            {
+                return null;
+            }
 
             if (res.StatusCode == System.Net.HttpStatusCode.OK)
             {

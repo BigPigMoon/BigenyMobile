@@ -1,4 +1,5 @@
 ﻿using Bigeny.Services;
+using Plugin.FirebasePushNotification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Bigeny.Views
             string nickname = nickname_input.Text;
             if (await AuthService.Register(email, password, nickname))
             {
+                await UsersService.UpdateDeviceToken(CrossFirebasePushNotification.Current.Token);
                 Application.Current.MainPage = new Dashboard();
             }
             else

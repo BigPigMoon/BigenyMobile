@@ -21,6 +21,24 @@ namespace Bigeny.Http
             return JsonConvert.DeserializeObject<User>(await Api.TokenyzeGet("users/me", tokens));
         }
 
+        public static async Task<User> GetUser(Tokens tokens, int id)
+        {
+            return JsonConvert.DeserializeObject<User>(await Api.TokenyzeGet("users/" + id, tokens));
+        }
+
+        public static async Task UpdateDeviceToken(Tokens tokens, string deviceToken)
+        {
+            var data = new StringContent(
+                JsonConvert.SerializeObject(new
+                {
+                    deviceToken
+                }),
+                Encoding.UTF8,
+                "application/json"
+            );
+            await Api.TokenyzePut("users/updateDeviceToken", data, tokens);
+        }
+
         public static async Task<User> UpdateAvatar(Tokens tokens, string filename)
         {
             var data = new StringContent(

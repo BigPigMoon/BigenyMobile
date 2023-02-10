@@ -114,7 +114,7 @@ namespace Bigeny.Views
 
             if (selectedItems.Count == 0)
             {
-                await this.DisplayToastAsync("Please, choise some users");
+                await this.DisplayToastAsync("Выберети пользователя или пользователей");
                 return;
             }
 
@@ -123,7 +123,7 @@ namespace Bigeny.Views
             {
                 if (chat_name_Entry.Text.Length == 0)
                 {
-                    await this.DisplayToastAsync("Please, set name for dialog");
+                    await this.DisplayToastAsync("Укажите имя пользователя");
                     return;
                 }
                 name = chat_name_Entry.Text;
@@ -137,11 +137,6 @@ namespace Bigeny.Views
             {
                 if (selectedItems.Count < 2)
                     avatar = selectedItems[0].Avatar;
-                else
-                {
-                    await this.DisplayToastAsync("Please, set image for dialog");
-                    return;
-                }
             }
 
             bool result = await MessagesService.CreateDialog(users, name, avatar);

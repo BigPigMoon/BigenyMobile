@@ -8,7 +8,7 @@
             <StackLayout Orientation="Vertical">
                 <Frame HeightRequest="50" Style="{StaticResource BigenySearch}" CornerRadius="100" Padding="20,0,20,0" Margin="20" HasShadow="False">
                     <FlexLayout JustifyContent="Center" AlignItems="Center">
-                        <Entry x:Name="userName_searchBar" Style="{StaticResource BigenySearchEntry}" FlexLayout.Grow="1" TextChanged="userName_searchBar_TextChanged" Placeholder="Search users..."/>
+                        <Entry x:Name="userName_searchBar" Style="{StaticResource BigenySearchEntry}" FlexLayout.Grow="1" TextChanged="userName_searchBar_TextChanged" Placeholder="Поиск диалогов..."/>
                         <Label Text="&#59574;" Style="{StaticResource BigenyLabel}" FontFamily="Material" FontSize="32" Margin="10,0,10,0">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="SearchLabel_Tapped"/>

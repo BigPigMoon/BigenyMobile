@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Bigeny.Models
 {
-    internal class Tokens
+    public class Tokens
     {
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }

@@ -3,15 +3,13 @@ using Bigeny.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Xamarians.CropImage;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace Bigeny.Services
 {
-    internal class UsersService
+    public class PostService
     {
-        public static async Task<User> GetMe()
+        public static async Task<Post> CreatePost(string content, string image, int channelId)
         {
             try
             {
@@ -19,7 +17,7 @@ namespace Bigeny.Services
                 string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
 
                 Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-                return await UserApi.GetMe(tok);
+                return await PostApi.CreatePost(tok, content, image, channelId);
             }
             catch (Exception ex)
             {
@@ -28,7 +26,7 @@ namespace Bigeny.Services
             }
         }
 
-        public static async Task UpdateDeviceToken(string deviceToken)
+        public static async Task<List<Post>> GetPosts()
         {
             try
             {
@@ -36,23 +34,7 @@ namespace Bigeny.Services
                 string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
 
                 Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-                await UserApi.UpdateDeviceToken(tok, deviceToken);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
-
-        public static async Task<List<User>> GetUsers()
-        {
-            try
-            {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-                return await UserApi.GetUsers(tok);
+                return await PostApi.GetPosts(tok);
             }
             catch (Exception ex)
             {
@@ -61,7 +43,7 @@ namespace Bigeny.Services
             }
         }
 
-        public static async Task<User> GetUser(int id)
+        public static async Task<Post> GetPost(int id)
         {
             try
             {
@@ -69,7 +51,7 @@ namespace Bigeny.Services
                 string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
 
                 Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-                return await UserApi.GetUser(tok, id);
+                return await PostApi.GetPost(tok, id);
             }
             catch (Exception ex)
             {
@@ -78,7 +60,7 @@ namespace Bigeny.Services
             }
         }
 
-        public static async Task<User> UploadAvatar()
+        public static async Task<List<Post>> GetPostsFromChannel(int channelId)
         {
             try
             {
@@ -86,9 +68,7 @@ namespace Bigeny.Services
                 string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
 
                 Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-
-                string filename = await StorageService.Upload();
-                return await UserApi.UpdateAvatar(tok, filename);
+                return await PostApi.GetPostsFromChannel(tok, channelId);
             }
             catch (Exception ex)
             {
@@ -97,7 +77,7 @@ namespace Bigeny.Services
             }
         }
 
-        public static async Task<User> ChangeNickname(string newName)
+        public static async Task<List<Post>> GetPostFromSubscribesChannel()
         {
             try
             {
@@ -105,8 +85,41 @@ namespace Bigeny.Services
                 string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
 
                 Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                return await PostApi.GetPostFromSubscribesChannel(tok);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
 
-                return await UserApi.ChangeName(tok, newName);
+        public static async Task<bool> SetPostRate(int postId, bool positive)
+        {
+            try
+            {
+                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
+                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
+
+                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                return await PostApi.SetPostRate(tok, postId, positive);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public static async Task<PostRate> GetPostRate(int postId)
+        {
+            try
+            {
+                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
+                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
+
+                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                return await PostApi.GetPostRate(tok, postId) ;
             }
             catch (Exception ex)
             {

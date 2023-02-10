@@ -3,6 +3,7 @@ using Bigeny.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -25,6 +26,8 @@ namespace Bigeny.Views
         public Dialogs()
         {
             InitializeComponent();
+            // TODO: do update later
+            //UpdateDialogs();
         }
 
         protected override async void OnAppearing()
@@ -35,19 +38,62 @@ namespace Bigeny.Views
             LoadDialogsPreview();
         }
 
+        private void UpdateDialogs()
+        {
+            Device.StartTimer(TimeSpan.FromSeconds(1), () => {
+                var newDialogs = Task.Run(async () => await MessagesService.GetDialogs()).Result;
+                dialogPreviews = new List<DialogPreviewModel>();
+                foreach (var dialog in dialogs)
+                {
+                    var avatar = StorageService.Download(dialog.avatar);
+
+                    string lastMessage = dialog.messages.Count == 0 ? "" : dialog.messages[0].content.Length >= 25 ? dialog.messages[0].content.Substring(0, 25) + "..." : dialog.messages[0].content;
+
+                    dialogPreviews.Add(new DialogPreviewModel
+                    {
+                        Id = dialog.id,
+                        Name = dialog.name,
+                        PhotoUri = avatar,
+                        IsReaded = !dialog.isReaded,
+                        LastMessage = lastMessage
+                    });
+                }
+
+                if (dialogPreviews == null || dialogPreviews.Count == 0 || newDialogs.Count == 0) return true;
+                bool changed = false;
+
+                foreach (var dialog in newDialogs)
+                {
+                    var di = dialogPreviews.Find(d => d.Id == dialog.id);
+                    if (di.LastMessage.Length == 0) continue;
+                    if (di.LastMessage != dialog.messages[0].content)
+                    {
+                        di.LastMessage= dialog.messages[0].content;
+                        di.IsReaded = false;
+                        changed = true;
+                    }
+                }
+                if (changed)
+                    dialogs_listView.ItemsSource = dialogPreviews;
+                return true;
+            });
+        }
+
         private void LoadDialogsPreview()
         {
             dialogPreviews = new List<DialogPreviewModel>();
             foreach (var dialog in dialogs)
             {
                 var avatar = StorageService.Download(dialog.avatar);
+                string lastMessage = dialog.messages.Count == 0 ? "" : dialog.messages[0].content.Length >= 25 ? dialog.messages[0].content.Substring(0, 25) + "..." : dialog.messages[0].content;
+
                 dialogPreviews.Add(new DialogPreviewModel
                 {
                     Id = dialog.id,
                     Name = dialog.name,
                     PhotoUri = avatar,
                     IsReaded = !dialog.isReaded,
-                    LastMessage = dialog.messages.Count == 0 ? "" : dialog.messages[0].content
+                    LastMessage = lastMessage
                 });
             }
             dialogs_listView.ItemsSource = dialogPreviews;

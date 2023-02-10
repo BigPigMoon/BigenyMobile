@@ -3,15 +3,13 @@ using Bigeny.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Xamarians.CropImage;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace Bigeny.Services
 {
-    internal class UsersService
+    public class ChannelService
     {
-        public static async Task<User> GetMe()
+        public static async Task<bool> CreateChannel(string name, string description, string avatar)
         {
             try
             {
@@ -19,7 +17,24 @@ namespace Bigeny.Services
                 string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
 
                 Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-                return await UserApi.GetMe(tok);
+                return await ChannelApi.CreateChannel(tok, name, description, avatar);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public static async Task<List<Channel>> GetChannels()
+        {
+            try
+            {
+                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
+                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
+
+                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                return await ChannelApi.GetChannels(tok);
             }
             catch (Exception ex)
             {
@@ -28,7 +43,7 @@ namespace Bigeny.Services
             }
         }
 
-        public static async Task UpdateDeviceToken(string deviceToken)
+        public static async Task<Channel> GetChannel(int channelId)
         {
             try
             {
@@ -36,23 +51,7 @@ namespace Bigeny.Services
                 string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
 
                 Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-                await UserApi.UpdateDeviceToken(tok, deviceToken);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
-
-        public static async Task<List<User>> GetUsers()
-        {
-            try
-            {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-                return await UserApi.GetUsers(tok);
+                return await ChannelApi.GetChannel(tok, channelId);
             }
             catch (Exception ex)
             {
@@ -61,7 +60,7 @@ namespace Bigeny.Services
             }
         }
 
-        public static async Task<User> GetUser(int id)
+        public static async Task<List<Channel>> GetSubsChannels()
         {
             try
             {
@@ -69,7 +68,7 @@ namespace Bigeny.Services
                 string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
 
                 Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-                return await UserApi.GetUser(tok, id);
+                return await ChannelApi.GetSubsChannels(tok);
             }
             catch (Exception ex)
             {
@@ -78,7 +77,7 @@ namespace Bigeny.Services
             }
         }
 
-        public static async Task<User> UploadAvatar()
+        public static async Task<bool> Subscribe(int channelId)
         {
             try
             {
@@ -86,32 +85,12 @@ namespace Bigeny.Services
                 string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
 
                 Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-
-                string filename = await StorageService.Upload();
-                return await UserApi.UpdateAvatar(tok, filename);
+                return await ChannelApi.Subscribe(tok, channelId);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return null;
-            }
-        }
-
-        public static async Task<User> ChangeNickname(string newName)
-        {
-            try
-            {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
-
-                return await UserApi.ChangeName(tok, newName);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return null;
+                return false;
             }
         }
     }

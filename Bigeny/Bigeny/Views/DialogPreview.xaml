@@ -32,7 +32,7 @@
                     <Frame FlexLayout.Grow="1" Style="{StaticResource BigenySearch}" CornerRadius="100" Margin="0, 0, 20, 0" Padding="10,0,10,0" HasShadow="False">
                         <Entry x:Name="sender_input" Style="{StaticResource BigenyEntry}"/>
                     </Frame>
-                    <Label Text="&#57699;" Style="{StaticResource BigenyHeaderLabel}" FontFamily="Material" FontSize="32" FlexLayout.AlignSelf="Center" Margin="0,0,10,0">
+                    <Label x:Name="sender_Button" Text="&#57699;" Style="{StaticResource BigenyHeaderLabel}" FontFamily="Material" FontSize="32" FlexLayout.AlignSelf="Center" Margin="0,0,10,0">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="Sender_Tapped"/>
                         </Label.GestureRecognizers>

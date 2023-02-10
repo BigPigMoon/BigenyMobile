@@ -15,20 +15,20 @@
                                 <TapGestureRecognizer Tapped="OnBackButton_Clicked"/>
                             </Label.GestureRecognizers>
                         </Label>
-                        <Label Text="Create Dialog" FontSize="32" Style="{StaticResource BigenyHeaderLabel}" Margin="0"/>
+                        <Label Text="Создать диалог" FontSize="32" Style="{StaticResource BigenyHeaderLabel}" Margin="0"/>
                     </FlexLayout>
                 </Frame>
                 <FlexLayout Direction="Row" x:Name="chat_name_frame" IsVisible="False" Margin="20, 10, 20, 10">
                     <Frame CornerRadius="100" HeightRequest="96" WidthRequest="96" Padding="0" HasShadow="False" Margin="0,0,0,0">
-                        <ImageButton x:Name="avatar_Image" Scale="1.25" Clicked="avatarImage_Clicked"/>
+                        <ImageButton x:Name="avatar_Image" Scale="1.25" Clicked="avatarImage_Clicked" Source="notfound.png"/>
                     </Frame>
                     <Frame CornerRadius="10" Margin="20, 0, 0, 0" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}" FlexLayout.AlignSelf="Center" FlexLayout.Grow="1">
-                        <Entry x:Name="chat_name_Entry" Style="{StaticResource BigenyEntry}" Placeholder="Chat name"/>
+                        <Entry x:Name="chat_name_Entry" Style="{StaticResource BigenyEntry}" Placeholder="Имя беседы"/>
                     </Frame>
                 </FlexLayout>
                 <Frame HeightRequest="50" Style="{StaticResource BigenySearch}" CornerRadius="100" Padding="20,0,20,0" Margin="20,0,20,0" HasShadow="False">
                     <FlexLayout JustifyContent="Center" AlignItems="Center">
-                        <Entry x:Name="userName_searchBar" Style="{StaticResource BigenySearchEntry}" FlexLayout.Grow="1" TextChanged="userName_searchBar_TextChanged" Placeholder="Search users..."/>
+                        <Entry x:Name="userName_searchBar" Style="{StaticResource BigenySearchEntry}" FlexLayout.Grow="1" TextChanged="userName_searchBar_TextChanged" Placeholder="Поиск пользователей..."/>
                         <Label Text="&#59574;" Style="{StaticResource BigenyLabel}" FontFamily="Material" FontSize="32" Margin="10,0,10,0">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="SearchLabel_Tapped"/>

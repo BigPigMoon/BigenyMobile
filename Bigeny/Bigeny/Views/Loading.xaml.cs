@@ -1,11 +1,6 @@
 ﻿using Bigeny.Models;
 using Bigeny.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Essentials;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,11 +16,20 @@ namespace Bigeny.Views
 
         protected override async void OnAppearing()
         {
-            User users = await UsersService.GetMe();
-            if (users != null)
-                Application.Current.MainPage = new Dashboard();
-            else
+            try
+            {
+                User users = await UsersService.GetMe();
+                if (users != null)
+                {
+                    Application.Current.MainPage = new Dashboard();
+                }
+                else
+                    Application.Current.MainPage = new Login();
+            } catch
+            {
+                await this.DisplayToastAsync("Проблемы с интернет соединением");
                 Application.Current.MainPage = new Login();
+            }
         }
     }
 }

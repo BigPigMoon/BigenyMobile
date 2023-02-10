@@ -1,4 +1,5 @@
 ﻿using Bigeny.Services;
+using Plugin.FirebasePushNotification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +25,13 @@ namespace Bigeny.Views
             string password = password_input.Text;
             if (await AuthService.Login(email, password))
             {
+                await UsersService.UpdateDeviceToken(CrossFirebasePushNotification.Current.Token);
                 Application.Current.MainPage = new Dashboard();
             }
             else
             {
-                await DisplayAlert("clicked!", $"Не верный логин или пароль.", "close");
+                // TODO: diaplay error of sign in
+                await DisplayAlert("", $"Не верный логин или пароль.", "close");
             }
         }
 

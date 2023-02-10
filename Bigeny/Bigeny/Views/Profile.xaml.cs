@@ -1,16 +1,10 @@
 ﻿using Bigeny.Models;
 using Bigeny.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
-using Xamarin.CommunityToolkit;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.CommunityToolkit.Extensions;
-using Bigeny.Http;
 
 namespace Bigeny.Views
 {

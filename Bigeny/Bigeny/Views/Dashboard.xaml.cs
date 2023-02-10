@@ -1,15 +1,7 @@
-﻿using Bigeny.Models;
-using Bigeny.Services;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using Bigeny.Services;
+using Plugin.FirebasePushNotification;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Bigeny.Views.Dialogs;
 
 namespace Bigeny.Views
 {
@@ -19,6 +11,11 @@ namespace Bigeny.Views
         public Dashboard()
         {
             InitializeComponent();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
         }
     }
 }

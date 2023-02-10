@@ -12,29 +12,29 @@
             BarTextColor="{DynamicResource BigenyWhite}"
             Title="Dashboard">
 
-    <NavigationPage Title="Dialogs" IconImageSource="dialogs.png">
+    <NavigationPage Title="Диалоги" IconImageSource="dialogs.png">
         <x:Arguments>
             <views:Dialogs NavigationPage.HasNavigationBar="False"/>
         </x:Arguments>
     </NavigationPage>
 
-    <TabbedPage Title="Dashboard" IconImageSource="news.png" BarBackgroundColor="{DynamicResource BigenyBlack}" BarTextColor="{DynamicResource BigenyWhite}">
-        <NavigationPage Title="Channels">
+    <TabbedPage Title="Стена" IconImageSource="news.png" BarBackgroundColor="{DynamicResource BigenyBlack}" BarTextColor="{DynamicResource BigenyWhite}">
+        <NavigationPage Title="Каналы">
             <x:Arguments>
                 <views:Channels NavigationPage.HasNavigationBar="False"/>
             </x:Arguments>
         </NavigationPage>
-        <NavigationPage Title="Wall">
+        <NavigationPage Title="Подписки">
             <x:Arguments>
                 <views:Wall NavigationPage.HasNavigationBar="False"/>
             </x:Arguments>
         </NavigationPage>
-        <NavigationPage Title="Now">
+        <NavigationPage Title="Новости">
             <x:Arguments>
                 <views:News NavigationPage.HasNavigationBar="False"/>
             </x:Arguments>
         </NavigationPage>
     </TabbedPage>
 
-    <views:Profile Title="Profile" IconImageSource="user.png"/>
+    <views:Profile Title="Мой профиль" IconImageSource="user.png"/>
 </TabbedPage>

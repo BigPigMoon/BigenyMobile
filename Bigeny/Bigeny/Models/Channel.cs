@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Bigeny.Models
 {
-    public class Dialog
+    public class Channel
     {
         public int id { get; set; }
         public string name { get; set; }
-        public List<Message> messages { get; set; }
         public string avatar { get; set; }
-        public bool isReaded { get; set; }
-        public int count { get; set; }
+        public string description { get; set; }
+        public int ownerId { get; set; }
+        public List<Post> posts { get; set; }
     }
 }

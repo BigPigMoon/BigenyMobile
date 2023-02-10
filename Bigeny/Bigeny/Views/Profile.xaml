@@ -19,11 +19,6 @@
                         </Label.GestureRecognizers>
                     </Label>
                 </Frame>
-                <Label Text="&#58286;" FontFamily="Material" FontSize="28" TextColor="{StaticResource BigenyWhite}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".95,.05,32,32">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="PhoneChange_Tapped"/>
-                    </Label.GestureRecognizers>
-                </Label>
                 <Label x:Name="moon_icon" Text="&#58652;" FontFamily="Material" FontSize="28" TextColor="{StaticResource BigenyWhite}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".05,.05,32,32">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ThemeSwitcher_Tapped"/>
@@ -49,7 +44,7 @@
                 </Frame>
             </StackLayout>
 
-            <Button Text="Logout" Clicked="Logout_Clicked" Style="{StaticResource BigenyButton}"
+            <Button Text="Выйти" Clicked="Logout_Clicked" Style="{StaticResource BigenyButton}"
                     Margin="40"
                     VerticalOptions="EndAndExpand"
                     Padding="0, 15, 0, 15"/>

@@ -1,6 +1,7 @@
 ﻿using Bigeny.Models;
 using Bigeny.Services;
 using Bigeny.Views;
+using Plugin.FirebasePushNotification;
 using System;
 using System.Collections.Generic;
 using Xamarin.Essentials;
@@ -26,10 +27,18 @@ namespace Bigeny
                 App.Current.UserAppTheme = OSAppTheme.Dark;
             else
                 App.Current.UserAppTheme = OSAppTheme.Light;
+            CrossFirebasePushNotification.Current.OnTokenRefresh += OnRefreshDeviceToken;
+        }
+
+        private async void OnRefreshDeviceToken(object source, FirebasePushNotificationTokenEventArgs e)
+        {
+            //System.Diagnostics.Debug.WriteLine($"TOKEN: {CrossFirebasePushNotification.Current.Token}");
+            await UsersService.UpdateDeviceToken(CrossFirebasePushNotification.Current.Token);
         }
 
         protected override void OnSleep()
         {
+            CrossFirebasePushNotification.Current.OnTokenRefresh += OnRefreshDeviceToken;
         }
 
         protected override void OnResume()
@@ -38,6 +47,7 @@ namespace Bigeny
                 App.Current.UserAppTheme = OSAppTheme.Dark;
             else
                 App.Current.UserAppTheme = OSAppTheme.Light;
+            CrossFirebasePushNotification.Current.OnTokenRefresh += OnRefreshDeviceToken;
         }
     }
 }

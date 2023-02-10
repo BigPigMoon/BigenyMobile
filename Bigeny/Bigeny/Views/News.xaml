@@ -4,6 +4,49 @@
              x:Class="Bigeny.Views.News"
              Style="{StaticResource BigenyBackground}">
     <ContentPage.Content>
-        <Image Source="https://s3.amazonaws.com/stickers.wiki/mmdpepe_stickers/163514.512.webp" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <ScrollView Margin="0,0,20,0">
+            <ListView x:Name="wallposts_listView" HasUnevenRows="True" SelectionMode="None" SeparatorVisibility="None" ItemTapped="wallposts_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout>
+                                    <Frame HorizontalOptions="FillAndExpand" Style="{StaticResource BigenyCard}" Margin="10" Padding="10" HasShadow="False" CornerRadius="10">
+                                        <StackLayout>
+                                            <FlexLayout Direction="Row">
+                                                <Frame CornerRadius="100" HeightRequest="64" WidthRequest="64" Padding="0" HasShadow="False" Margin="0,0,20,0">
+                                                    <Image Source="{Binding Avatar}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                </Frame>
+                                                <StackLayout FlexLayout.Grow="1">
+                                                    <Label Text="{Binding Name}" Style="{StaticResource BigenyLabel}" FontSize="20"/>
+                                                    <Label Text="{Binding Date}" Style="{StaticResource BigenyLabel}" FontSize="16"/>
+                                                </StackLayout>
+                                            </FlexLayout>
+                                            <Label Text="{Binding Content}" FontSize="24" Padding="10" Style="{StaticResource BigenyLabel}"/>
+                                            <Image Source="{Binding Image}"/>
+                                            <FlexLayout JustifyContent="SpaceBetween" AlignItems="Center" Direction="RowReverse">
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="&#58830;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" ClassId="{Binding Id}" TextColor="{Binding RateColorUp}">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="OnUpButtonTapped" CommandParameter="{Binding .}"/>
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
+                                                    <Label Text="{Binding Rate}" FontSize="20" Style="{StaticResource BigenyLabel}" TextColor="{Binding RateColor}"/>
+                                                    <Label Text="&#58831;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" ClassId="{Binding Id}" TextColor="{Binding RateColorDown}">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="OnDownButtonTapped" CommandParameter="{Binding .}"/>
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
+                                                </StackLayout>
+                                            </FlexLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

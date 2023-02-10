@@ -13,27 +13,22 @@
                                 <TapGestureRecognizer Tapped="OnBackButton_Clicked"/>
                             </Label.GestureRecognizers>
                         </Label>
-                        <Label Text="Create Dialog" FontSize="32" Style="{StaticResource BigenyHeaderLabel}" Margin="0"/>
+                        <Label Text="Создать канал" FontSize="32" Style="{StaticResource BigenyHeaderLabel}" Margin="0"/>
                     </FlexLayout>
                 </Frame>
 
                 <FlexLayout Margin="20, 0, 20, 0">
-                    <Frame CornerRadius="100" BorderColor="{DynamicResource BigenyBlack}">
-                        <ImageButton WidthRequest="64" HeightRequest="64" Source="avatar.png" Clicked="AvatarButton_Clicked"/>
+                    <Frame CornerRadius="100" HeightRequest="96" WidthRequest="96" Padding="0" HasShadow="False" Margin="0,0,0,0">
+                        <ImageButton x:Name="avatar_Image" Scale="1.25" Clicked="AvatarButton_Clicked" Source="notfound.png"/>
                     </Frame>
                     <Frame CornerRadius="10" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}" HeightRequest="40" FlexLayout.Grow="1" Margin="20, 10, 20, 10" FlexLayout.AlignSelf="Center">
-                        <Entry x:Name="channel_name" Placeholder="Channel name" Style="{StaticResource BigenyEntry}"/>
+                        <Entry x:Name="channel_name_Input" Placeholder="Имя канала" Style="{StaticResource BigenyEntry}"/>
                     </Frame>
                 </FlexLayout>
 
                 <Frame CornerRadius="10" Margin="20, 10, 20, 10" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
-                    <Entry x:Name="description" Style="{StaticResource BigenyEntry}" Placeholder="Description"/>
+                    <Entry x:Name="description_Input" Style="{StaticResource BigenyEntry}" Placeholder="Описание"/>
                 </Frame>
-
-                <Frame CornerRadius="10" Margin="20, 10, 20, 10" Padding="20, 0, 20, 0" BackgroundColor="{DynamicResource BigenyBlue}">
-                    <Entry x:Name="tags" Style="{StaticResource BigenyEntry}" Placeholder="Tags"/>
-                </Frame>
-                <Label Text="Please, enter tags with # symbol with separate by whitespace." FontSize="24" Style="{StaticResource BigenyLabel}" Margin="20, 0, 20, 0"/>
             </StackLayout>
 
             <ImageButton AbsoluteLayout.LayoutFlags="PositionProportional"

@@ -23,13 +23,17 @@
         <Style x:Key="BigenyLabel" TargetType="Label">
             <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource BigenyDarkWhite}, Light={StaticResource BigenyBlack}}"/>
         </Style>
+
+        <Style x:Key="BigenyNameLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource BigenyBlue}"/>
+        </Style>
         
         <Style x:Key="BigenyHeaderLabel" TargetType="Label">
             <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource BigenyBlack}, Light={StaticResource BigenyWhite}}"/>
         </Style>
 
         <Style x:Key="BigenyEntry" TargetType="Entry">
-            <Setter Property="TextColor" Value="{StaticResource BigenyWhite}"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource BigenyWhite}, Light={StaticResource BigenyDark}}"/>
             <Setter Property="PlaceholderColor" Value="{AppThemeBinding Dark={StaticResource BigenyWhite}, Light={StaticResource BigenyWhite}}"/>
         </Style>
 
