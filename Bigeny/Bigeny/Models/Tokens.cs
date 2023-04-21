@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Bigeny.Models
 {
+    [Serializable]
     public class Tokens
     {
         public string AccessToken { get; set; }

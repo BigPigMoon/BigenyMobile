@@ -60,5 +60,13 @@ namespace Bigeny.Services
                 Console.WriteLine(ex);
             }
         }
+
+        public static async Task<Tokens> GetTokens()
+        {
+            string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
+            string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
+
+            return new Tokens() { AccessToken = at, RefreshToken = rt };
+        }
     }
 }

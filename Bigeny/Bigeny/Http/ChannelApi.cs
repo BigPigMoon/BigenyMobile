@@ -10,7 +10,7 @@ namespace Bigeny.Http
 {
     public class ChannelApi
     {
-        public static async Task<bool> CreateChannel(Tokens tokens, string name, string description, string avatar)
+        public static async Task<Channel> CreateChannel(Tokens tokens, string name, string description, string avatar)
         {
             StringContent data = new StringContent(
                 JsonConvert.SerializeObject(new
@@ -22,7 +22,7 @@ namespace Bigeny.Http
                 Encoding.UTF8,
                 "application/json"
             );
-            return JsonConvert.DeserializeObject<bool>(await Api.TokenyzePost("channels/create", data, tokens));
+            return JsonConvert.DeserializeObject<Channel>(await Api.TokenyzePost("channels/create", data, tokens));
         }
 
         public static async Task<List<Channel>> GetChannels(Tokens tokens)
@@ -40,7 +40,7 @@ namespace Bigeny.Http
             return JsonConvert.DeserializeObject<List<Channel>>(await Api.TokenyzeGet("channels/subs", tokens));
         }
 
-        public static async Task<bool> Subscribe(Tokens tokens, int channelId)
+        public static async Task<Channel> Subscribe(Tokens tokens, int channelId)
         {
             StringContent data = new StringContent(
                 JsonConvert.SerializeObject(new {}),
@@ -48,7 +48,7 @@ namespace Bigeny.Http
                 "application/json"
             );
 
-            return JsonConvert.DeserializeObject<bool>(await Api.TokenyzePost($"channels/sub/{channelId}", data, tokens));
+            return JsonConvert.DeserializeObject<Channel>(await Api.TokenyzePost($"channels/sub/{channelId}", data, tokens));
         }
     }
 }

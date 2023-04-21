@@ -54,7 +54,7 @@ namespace Bigeny.Views
                 channelAvatar_Image.Source = (UriImageSource)source;
             channelName_Label.Text = Channel.name;
 
-            var user = await UsersService.GetMe();
+            var user = (User)Application.Current.Properties["user"];
             UserId = user.Id;
             if (UserId != Channel.ownerId)
             {
@@ -174,12 +174,6 @@ namespace Bigeny.Views
             var id = Int32.Parse(((Label)sender).ClassId);
             await PostService.SetPostRate(id, false);
             await LoadPost();
-        }
-
-        private async void Comment_Tapped(object sender, EventArgs e)
-        {
-            var id = ((Label)sender).ClassId;
-            await Navigation.PushModalAsync(new Comment());
         }
 
         private async void Sender_Tapped(object sender, EventArgs e)

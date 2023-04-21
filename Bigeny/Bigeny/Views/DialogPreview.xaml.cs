@@ -38,7 +38,7 @@ namespace Bigeny.Views
         {
             base.OnAppearing();
             
-            user = await UsersService.GetMe();
+            user = (User)Application.Current.Properties["user"];
             dialog = await MessagesService.GetDialog(Id);
             var source = StorageService.Download(dialog.avatar);
             if (source.GetType() == typeof(string))
@@ -56,7 +56,7 @@ namespace Bigeny.Views
                 Dictionary<int, string> people = new Dictionary<int, string>();
                 var list = Task.Run(async () => await MessagesService.GetMessages(Id)).Result;
                 if (list != null && list.Count == 0 || messages.Count == 0) return true;
-                if (list != null && list.Last().id != messages.Last().id)
+                if (list.Last().id != messages.Last().id)
                 {
                     var message = list.Last();
                     if (message.createdAt.ToLocalTime().Day > lastDate.Day)
@@ -65,7 +65,7 @@ namespace Bigeny.Views
                         AddDate($"{lastDate.Day} {lastDate.Month}");
                     }
 
-                    if (dialog.count > 2)
+                    if (dialog.countOfUser > 2)
                     {
                         if (people.ContainsKey(message.ownerId))
                         {
@@ -113,7 +113,7 @@ namespace Bigeny.Views
                     lastDate= message.createdAt.ToLocalTime();
                     AddDate($"{lastDate.Day} {info.MonthGenitiveNames[lastDate.Month - 1]}");
                 }
-                if (dialog.count > 2)
+                if (dialog.countOfUser > 2)
                 {
                     if (people.ContainsKey(message.ownerId))
                     {
@@ -149,6 +149,7 @@ namespace Bigeny.Views
         private async void OnBackButton_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();
+            Navigation.RemovePage(this);
         }
 
         private void Avatar_Tapped(object sender, EventArgs e)
@@ -170,7 +171,7 @@ namespace Bigeny.Views
                 }
                 if (messages.Count == 0)
                 {
-                    string ownerName = (await UsersService.GetMe()).Nickname;
+                    string ownerName = ((User)Application.Current.Properties["user"]).Nickname;
                     AddMessage(sender_input.Text, DateTime.Now.ToLocalTime().ToString("HH:mm"), ownerName, false);
                 }
                 sender_input.Text = "";

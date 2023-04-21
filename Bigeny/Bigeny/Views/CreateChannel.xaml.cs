@@ -1,4 +1,5 @@
-﻿using Bigeny.Services;
+﻿using Bigeny.Models;
+using Bigeny.Services;
 using System;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
@@ -21,9 +22,9 @@ namespace Bigeny.Views
             string name = channel_name_Input.Text;
             string description = description_Input.Text;
 
-            bool ret = await ChannelService.CreateChannel(name, description, avatar);
+            Channel ret = await ChannelService.CreateChannel(name, description, avatar);
 
-            if (ret)
+            if (ret != null)
             {
                 await Navigation.PopModalAsync();
             }

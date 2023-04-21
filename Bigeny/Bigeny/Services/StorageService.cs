@@ -18,10 +18,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
 
                 var pickedImg = await FilePicker.PickAsync(new PickOptions { FileTypes = FilePickerFileType.Images, PickerTitle = "Pick the image" });
                 if (pickedImg == null) return null;
@@ -47,7 +44,7 @@ namespace Bigeny.Services
             if (avatar == null || avatar.Length == 0) return "notfound.png";
             return new UriImageSource
             {
-                Uri = new Uri($"http://{Api.BaseIpAddress}:3000/store/download/" + avatar),
+                Uri = new Uri($"{Api.BaseIpAddress}/store/download/" + avatar),
                 CachingEnabled = true,
                 CacheValidity = new TimeSpan(10, 0, 0, 0)
             };

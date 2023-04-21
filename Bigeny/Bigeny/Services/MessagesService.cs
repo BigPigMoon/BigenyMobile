@@ -14,10 +14,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await MessageApi.GetDialogs(tok);
             }
             catch (Exception ex)
@@ -31,10 +28,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await MessageApi.GetDialog(tok, id);
             }
             catch (Exception ex)
@@ -48,10 +42,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await MessageApi.GetMessages(tok, id);
             }
             catch (Exception ex)
@@ -61,20 +52,17 @@ namespace Bigeny.Services
             }
         }
 
-        public static async Task<bool> CreateDialog(List<int> users, string name, string avatar)
+        public static async Task<Dialog> CreateDialog(List<int> users, string name, string avatar)
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await MessageApi.CreateDialog(tok, users, name, avatar);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return false;
+                return null;
             }
         }
 
@@ -82,10 +70,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 await MessageApi.Send(tok, dialogId, text);
             }
             catch (Exception ex)

@@ -9,20 +9,17 @@ namespace Bigeny.Services
 {
     public class ChannelService
     {
-        public static async Task<bool> CreateChannel(string name, string description, string avatar)
+        public static async Task<Channel> CreateChannel(string name, string description, string avatar)
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await ChannelApi.CreateChannel(tok, name, description, avatar);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return false;
+                return null;
             }
         }
 
@@ -30,10 +27,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await ChannelApi.GetChannels(tok);
             }
             catch (Exception ex)
@@ -47,10 +41,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await ChannelApi.GetChannel(tok, channelId);
             }
             catch (Exception ex)
@@ -64,10 +55,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await ChannelApi.GetSubsChannels(tok);
             }
             catch (Exception ex)
@@ -77,20 +65,17 @@ namespace Bigeny.Services
             }
         }
 
-        public static async Task<bool> Subscribe(int channelId)
+        public static async Task<Channel> Subscribe(int channelId)
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await ChannelApi.Subscribe(tok, channelId);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return false;
+                return null;
             }
         }
     }

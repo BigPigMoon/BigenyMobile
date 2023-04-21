@@ -13,10 +13,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await PostApi.CreatePost(tok, content, image, channelId);
             }
             catch (Exception ex)
@@ -30,10 +27,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await PostApi.GetPosts(tok);
             }
             catch (Exception ex)
@@ -47,10 +41,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await PostApi.GetPost(tok, id);
             }
             catch (Exception ex)
@@ -64,10 +55,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await PostApi.GetPostsFromChannel(tok, channelId);
             }
             catch (Exception ex)
@@ -81,10 +69,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await PostApi.GetPostFromSubscribesChannel(tok);
             }
             catch (Exception ex)
@@ -98,10 +83,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await PostApi.SetPostRate(tok, postId, positive);
             }
             catch (Exception ex)
@@ -115,10 +97,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await PostApi.GetPostRate(tok, postId) ;
             }
             catch (Exception ex)

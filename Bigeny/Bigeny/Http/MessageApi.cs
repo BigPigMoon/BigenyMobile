@@ -17,7 +17,7 @@ namespace Bigeny.Http
             return JsonConvert.DeserializeObject<List<Dialog>>(await Api.TokenyzeGet("messages/dialogs", tokens));
         }
 
-        public static async Task<bool> CreateDialog(Tokens tokens, List<int> users, string name, string avatar)
+        public static async Task<Dialog> CreateDialog(Tokens tokens, List<int> users, string name, string avatar)
         {
             StringContent data = new StringContent(
                 JsonConvert.SerializeObject(new {
@@ -28,7 +28,7 @@ namespace Bigeny.Http
                 Encoding.UTF8,
                 "application/json"
             );
-            return JsonConvert.DeserializeObject<bool>(await Api.TokenyzePost("messages/createDialog", data, tokens));
+            return JsonConvert.DeserializeObject<Dialog>(await Api.TokenyzePost("messages/createDialog", data, tokens));
         }
 
         public static async Task<Dialog> GetDialog(Tokens tokens, int id)

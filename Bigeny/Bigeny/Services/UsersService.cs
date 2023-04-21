@@ -15,10 +15,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await UserApi.GetMe(tok);
             }
             catch (Exception ex)
@@ -32,10 +29,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 await UserApi.UpdateDeviceToken(tok, deviceToken);
             }
             catch (Exception ex)
@@ -48,10 +42,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await UserApi.GetUsers(tok);
             }
             catch (Exception ex)
@@ -65,10 +56,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
                 return await UserApi.GetUser(tok, id);
             }
             catch (Exception ex)
@@ -82,10 +70,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
 
                 string filename = await StorageService.Upload();
                 return await UserApi.UpdateAvatar(tok, filename);
@@ -101,10 +86,7 @@ namespace Bigeny.Services
         {
             try
             {
-                string at = await SecureStorage.GetAsync(StorageKey.AccessToken);
-                string rt = await SecureStorage.GetAsync(StorageKey.RefreshToken);
-
-                Tokens tok = new Tokens() { AccessToken = at, RefreshToken = rt };
+                Tokens tok = await AuthService.GetTokens();
 
                 return await UserApi.ChangeName(tok, newName);
             }

@@ -36,14 +36,14 @@ namespace Bigeny.Views
         public News()
         {
             InitializeComponent();
-            UpdatePosts();
+            //UpdatePosts();
         }
 
         protected async override void OnAppearing()
         {
             base.OnAppearing();
             await LoadPosts();
-            UserId = (await UsersService.GetMe()).Id;
+            UserId = ((User)Application.Current.Properties["user"]).Id;
         }
 
         private void UpdatePosts()
@@ -161,11 +161,6 @@ namespace Bigeny.Views
             var item = (PostPreview)e.Item;
 
             await Navigation.PushModalAsync(new ChannelPreview(item.ChannelId));
-        }
-
-        private async void Comment_Tapped(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new Comment());
         }
     }
 }

@@ -8,12 +8,11 @@ namespace Bigeny.Http
 {
     internal class Api
     {
-        //public static readonly string BaseIpAddress = "192.168.0.100";
-        public static readonly string BaseIpAddress = "194.113.233.77";
+        public static readonly string BaseIpAddress = "https://www.bigeny.ru";
 
         public static HttpClient api = new HttpClient()
         {
-            BaseAddress = new Uri($"http://{BaseIpAddress}:3000/"),
+            BaseAddress = new Uri($"{BaseIpAddress}/"),
         };
 
         public static async Task<string> TokenyzeGet(string url, Tokens tokens)

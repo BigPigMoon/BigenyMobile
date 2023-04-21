@@ -1,4 +1,6 @@
-﻿using Bigeny.Services;
+﻿using Bigeny.Http;
+using Bigeny.Models;
+using Bigeny.Services;
 using Plugin.FirebasePushNotification;
 using System;
 using System.Collections.Generic;
@@ -26,6 +28,7 @@ namespace Bigeny.Views
             if (await AuthService.Login(email, password))
             {
                 await UsersService.UpdateDeviceToken(CrossFirebasePushNotification.Current.Token);
+                Application.Current.Properties["user"] = await UsersService.GetMe();
                 Application.Current.MainPage = new Dashboard();
             }
             else

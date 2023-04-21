@@ -40,8 +40,8 @@ namespace Bigeny.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            UserId = ((User)Application.Current.Properties["user"]).Id;
             await LoadPosts();
-            UserId = (await UsersService.GetMe()).Id;
         }
 
         private void UpdatePosts()
@@ -154,11 +154,6 @@ namespace Bigeny.Views
         {
             var item = (PostPreview)e.Item;
             await Navigation.PushModalAsync(new ChannelPreview(item.ChannelId));
-        }
-
-        private async void Comment_Tapped(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new Comment());
         }
     }
 }

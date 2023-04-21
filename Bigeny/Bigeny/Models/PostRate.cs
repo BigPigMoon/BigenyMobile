@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Bigeny.Models
 {
+    [Serializable]
     public class PostRate
     {
         public int rate { get; set; }

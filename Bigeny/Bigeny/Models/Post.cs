@@ -2,6 +2,7 @@
 
 namespace Bigeny.Models
 {
+    [Serializable]
     public class Post
     {
         public int id { get; set; }

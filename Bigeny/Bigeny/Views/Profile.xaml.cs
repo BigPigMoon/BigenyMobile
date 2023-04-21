@@ -31,7 +31,7 @@ namespace Bigeny.Views
         {
             base.OnAppearing();
 
-            User me = await UsersService.GetMe();
+            User me = (User)Application.Current.Properties["user"];
             var source = StorageService.Download(me.Avatar);
             if (source.GetType() == typeof(string))
                 avatar_img.Source = (string)source;
@@ -55,7 +55,7 @@ namespace Bigeny.Views
                 User updated = await UsersService.ChangeNickname(rename_Entry.Text);
                 if (updated == null)
                 {
-                    rename_Entry.Text = (await UsersService.GetMe()).Nickname;
+                    rename_Entry.Text = ((User)Application.Current.Properties["user"]).Nickname;
                     await this.DisplayToastAsync("This name is already hosted");
                 }
                 else

@@ -18,14 +18,14 @@ namespace Bigeny.Views
         {
             try
             {
-                User users = await UsersService.GetMe();
-                if (users != null)
-                {
+                User user = await UsersService.GetMe();
+                Application.Current.Properties["user"] = user;
+                if (user != null)
                     Application.Current.MainPage = new Dashboard();
-                }
                 else
                     Application.Current.MainPage = new Login();
-            } catch
+            }
+            catch
             {
                 await this.DisplayToastAsync("Проблемы с интернет соединением");
                 Application.Current.MainPage = new Login();

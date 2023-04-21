@@ -60,6 +60,7 @@ namespace Bigeny.Views
         private async void OnBackButton_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();
+            Navigation.RemovePage(this);
         }
 
         private void users_listView_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -139,8 +140,8 @@ namespace Bigeny.Views
                     avatar = selectedItems[0].Avatar;
             }
 
-            bool result = await MessagesService.CreateDialog(users, name, avatar);
-            if (!result)
+            Dialog result = await MessagesService.CreateDialog(users, name, avatar);
+            if (result == null)
                 await this.DisplayToastAsync("This dialog not unique!");
             else
                 await Navigation.PopModalAsync();
