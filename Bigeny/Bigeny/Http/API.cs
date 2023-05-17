@@ -8,7 +8,7 @@ namespace Bigeny.Http
 {
     internal class Api
     {
-        public static readonly string BaseIpAddress = "https://www.bigeny.ru";
+        public static readonly string BaseIpAddress = "https://api.bigeny.ru";
 
         public static HttpClient api = new HttpClient()
         {
@@ -82,7 +82,6 @@ namespace Bigeny.Http
         {
             try
             {
-
                 HttpClient headerApi = new HttpClient()
                 {
                     BaseAddress = api.BaseAddress

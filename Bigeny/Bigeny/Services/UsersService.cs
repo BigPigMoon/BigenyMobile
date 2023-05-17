@@ -16,6 +16,10 @@ namespace Bigeny.Services
             try
             {
                 Tokens tok = await AuthService.GetTokens();
+                if (tok.AccessToken == null || tok.RefreshToken == null)
+                {
+                    return null;
+                }
                 return await UserApi.GetMe(tok);
             }
             catch (Exception ex)

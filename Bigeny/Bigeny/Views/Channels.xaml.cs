@@ -47,7 +47,7 @@ namespace Bigeny.Views
             {
                 var avatar = StorageService.Download(channel.avatar);
 
-                string lastMessage = channel.lastPost != null ? "" : channel.lastPost.content.Length >= 25 ? channel.lastPost.content.Substring(0, 25) + "..." : channel.lastPost.content;
+                string lastMessage = channel.lastPost == null ? "" : channel.lastPost.content.Length >= 25 ? channel.lastPost.content.Substring(0, 25) + "..." : channel.lastPost.content;
 
                 channels.Add(new ChannelPreviewModel
                 {

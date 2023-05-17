@@ -44,7 +44,7 @@ namespace Bigeny.Services
             if (avatar == null || avatar.Length == 0) return "notfound.png";
             return new UriImageSource
             {
-                Uri = new Uri($"{Api.BaseIpAddress}/store/download/" + avatar),
+                Uri = new Uri($"{Api.BaseIpAddress}/" + avatar),
                 CachingEnabled = true,
                 CacheValidity = new TimeSpan(10, 0, 0, 0)
             };

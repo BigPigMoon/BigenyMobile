@@ -8,6 +8,6 @@ namespace Bigeny.Models
     public class PostRate
     {
         public int rate { get; set; }
-        public int userRate { get; set; }
+        public bool userRate { get; set; }
     }
 }

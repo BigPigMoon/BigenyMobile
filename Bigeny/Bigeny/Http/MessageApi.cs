@@ -38,7 +38,8 @@ namespace Bigeny.Http
 
         public static async Task<List<Message>> GetMessages(Tokens tokens, int id)
         {
-            return JsonConvert.DeserializeObject<List<Message>>(await Api.TokenyzeGet($"messages/{id}", tokens));
+            var res = await Api.TokenyzeGet($"messages/{id}", tokens);
+            return JsonConvert.DeserializeObject<List<Message>>(res);
         }
 
         public static async Task<string> Send(Tokens tokens, int dialogId, string content)

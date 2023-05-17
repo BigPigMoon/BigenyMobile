@@ -27,6 +27,7 @@ namespace Bigeny.Views
             if (await AuthService.Register(email, password, nickname))
             {
                 await UsersService.UpdateDeviceToken(CrossFirebasePushNotification.Current.Token);
+                Application.Current.Properties["user"] = await UsersService.GetMe();
                 Application.Current.MainPage = new Dashboard();
             }
             else

@@ -25,8 +25,6 @@ namespace Bigeny.Views
             public object Avatar { get; set; }
             public object Image { get; set; }
             public int ChannelId { get; set; }
-            public Color RateColorUp { get; set; }
-            public Color RateColorDown { get; set; }
             public Color RateColor { get; set; }
         };
 
@@ -94,28 +92,10 @@ namespace Bigeny.Views
                     ChannelId = post.channelId,
                 };
 
-                if (Preferences.Get("DarkTheme", false))
-                {
-                    p.RateColorUp = Color.FromHex("#FAFAFA");
-                    p.RateColorDown = Color.FromHex("#FAFAFA");
-                    p.RateColor = Color.FromHex("#FAFAFA");
-                }
-                else
-                {
-                    p.RateColorUp = Color.FromHex("#210124");
-                    p.RateColorDown = Color.FromHex("#210124");
-                    p.RateColor = Color.FromHex("#210124");
-                }
-
-                if (rate.userRate> 0)
-                    p.RateColorUp = Color.FromHex("#06BA63");
-                else if (rate.userRate < 0)
-                    p.RateColorDown = Color.FromHex("#FF1B1C");
-
-                if (rate.rate > 0)
-                    p.RateColor = Color.FromHex("#06BA63");
-                else if (rate.rate < 0)
+                if (rate.userRate)
                     p.RateColor = Color.FromHex("#FF1B1C");
+                else if (!rate.userRate)
+                    p.RateColor = Color.FromHex("#FAFAFA");
 
 
                 wallPosts.Add(p);

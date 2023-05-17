@@ -26,13 +26,8 @@
                                             <Image Source="{Binding Image}"/>
                                             <FlexLayout JustifyContent="SpaceBetween" AlignItems="Center" Direction="RowReverse">
                                                 <StackLayout Orientation="Horizontal">
-                                                    <Label Text="&#58830;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" ClassId="{Binding Id}" TextColor="{Binding RateColorUp}">
-                                                        <Label.GestureRecognizers>
-                                                            <TapGestureRecognizer Tapped="OnUpButtonTapped" CommandParameter="{Binding .}"/>
-                                                        </Label.GestureRecognizers>
-                                                    </Label>
-                                                    <Label Text="{Binding Rate}" FontSize="20" Style="{StaticResource BigenyLabel}" TextColor="{Binding RateColor}"/>
-                                                    <Label Text="&#58831;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" ClassId="{Binding Id}" TextColor="{Binding RateColorDown}">
+                                                    <Label Text="{Binding Rate}" FontSize="20" Style="{StaticResource BigenyLabel}"/>
+                                                    <Label Text="&#59517;" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Material" FontSize="36" TextColor="{Binding RateColor}" ClassId="{Binding Id}">
                                                         <Label.GestureRecognizers>
                                                             <TapGestureRecognizer Tapped="OnDownButtonTapped" CommandParameter="{Binding .}"/>
                                                         </Label.GestureRecognizers>

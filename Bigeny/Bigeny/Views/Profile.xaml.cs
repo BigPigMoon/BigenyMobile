@@ -38,7 +38,7 @@ namespace Bigeny.Views
             else
                 avatar_img.Source = (UriImageSource)source;
 
-            rename_Entry.Text = me.Nickname;
+            name_Label.Text = me.Nickname;
         }
 
         private void Logout_Clicked(object sender, EventArgs e)
@@ -49,23 +49,19 @@ namespace Bigeny.Views
 
         private async void Rename_Entry(object sender, EventArgs e)
         {
-            // TODO: if user doesn't change anything
-            if (!rename_Entry.IsReadOnly)
+            User updated = await UsersService.ChangeNickname(rename_Entry.Text);
+            if (updated.Nickname == null)
             {
-                User updated = await UsersService.ChangeNickname(rename_Entry.Text);
-                if (updated == null)
-                {
-                    rename_Entry.Text = ((User)Application.Current.Properties["user"]).Nickname;
-                    await this.DisplayToastAsync("This name is already hosted");
-                }
-                else
-                {
-                    rename_Entry.Text = updated.Nickname;
-                    await this.DisplayToastAsync("Your name was changed");
-                }
+                await this.DisplayToastAsync("Это имя уже занято!");
             }
-            rename_Entry.IsReadOnly = !rename_Entry.IsReadOnly;
-        }
+            else
+            {
+                rename_Entry.Text = "";
+                name_Label.Text = updated.Nickname;
+                await this.DisplayToastAsync("Ваше имя изменено.");
+                Application.Current.Properties["user"] = updated;
+            }
+         }
 
         private async void AvatarChange_Tapped(object sender, EventArgs e)
         {

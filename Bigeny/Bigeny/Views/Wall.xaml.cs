@@ -23,8 +23,6 @@ namespace Bigeny.Views
             public object Avatar { get; set; }
             public object Image { get; set; }
             public int ChannelId { get; set; }
-            public Color RateColorUp { get; set; }
-            public Color RateColorDown { get; set; }
             public Color RateColor { get; set; }
         };
 
@@ -88,29 +86,10 @@ namespace Bigeny.Views
                     ChannelId = post.channelId,
                 };
 
-                if (Preferences.Get("DarkTheme", false))
-                {
-                    p.RateColorUp = Color.FromHex("#FAFAFA");
-                    p.RateColorDown = Color.FromHex("#FAFAFA");
-                    p.RateColor = Color.FromHex("#FAFAFA");
-                }
-                else
-                {
-                    p.RateColorUp = Color.FromHex("#210124");
-                    p.RateColorDown = Color.FromHex("#210124");
-                    p.RateColor = Color.FromHex("#210124");
-                }
-
-                if (rate.userRate > 0)
-                    p.RateColorUp = Color.FromHex("#06BA63");
-                else if (rate.userRate < 0)
-                    p.RateColorDown = Color.FromHex("#FF1B1C");
-
-                if (rate.rate > 0)
-                    p.RateColor = Color.FromHex("#06BA63");
-                else if (rate.rate < 0)
+                if (rate.userRate)
                     p.RateColor = Color.FromHex("#FF1B1C");
-
+                else if (!rate.userRate)
+                    p.RateColor = Color.FromHex("#FAFAFA");
 
                 wallPosts.Add(p);
             }
@@ -118,7 +97,7 @@ namespace Bigeny.Views
             wallposts_listView.ItemsSource = wallPosts;
         }
 
-        private async void OnUpButtonTapped(object sender, EventArgs e)
+        private async void OnLikeButtonTapped(object sender, EventArgs e)
         {
             var id = Int32.Parse(((Label)sender).ClassId);
             var post = await PostService.GetPost(id);
@@ -131,22 +110,6 @@ namespace Bigeny.Views
             }
 
             await PostService.SetPostRate(id, true);
-            await LoadPosts();
-        }
-
-        private async void OnDownButtonTapped(object sender, EventArgs e)
-        {
-            var id = Int32.Parse(((Label)sender).ClassId);
-            var post = await PostService.GetPost(id);
-            var channel = await ChannelService.GetChannel(post.channelId);
-
-            if (UserId == channel.ownerId)
-            {
-                await this.DisplayToastAsync("Нельзя дизлайкать самого себя.");
-                return;
-            }
-
-            await PostService.SetPostRate(id, false);
             await LoadPosts();
         }
 
